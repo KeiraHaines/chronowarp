@@ -1,0 +1,243 @@
+**Chrono**
+MediaItem.game(Game(
+    number: 1, 
+    title: 'Hogwarts Legacy', 
+    year: 2023, 
+    playtime: '25-80h',
+    developer: 'Avalanche Software',
+    blurb: "Set during the late 1800s, a newly enrolled student at Hogwarts discovers that they possess the unusual ability to perceive and master Ancient Magic, becoming the key to an old secret that threatens to tear the wizarding world apart.",
+    posterPath: '![[hogwarts-legacy-pc-games-playstation-4-playstation-5-xbox-3840x2160-2913.jpg]]'
+),),
+
+MediaItem.movie(Movie(
+    number: 2, 
+    title: 'Fantastic Beasts and Where to Find Them', 
+    year: 2016, 
+    runtime: '2h 12m',
+    director: 'David Yates',
+    blurb: "In 1926, magizoologist Newt Scamander arrives in New York during his worldwide tour to research and rescue magical creatures as something mysterious leaves trails of destruction in the city, threatening to expose the wizarding world.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 3, 
+    title: ' Fantastic Beasts: The Crimes of Grindelwald', 
+    year: 2018, 
+    runtime: '2h 14m',
+    director: 'David Yates',
+    blurb: "Gellert Grindelwald plans to raise an army of wizards to rule over non-magical beings. In response, Newt Scamander's former professor, Albus Dumbledore, seeks his help to stop him.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 4, 
+    title: ' Fantastic Beasts: The Secrets of Dumbledore', 
+    year: 2022, 
+    runtime: '2h 22m',
+    director: 'David Yates',
+    blurb: "Albus Dumbledore knows that Gellert Grindelwald is moving to take control of the wizarding world. Unable to stop him alone, he asks Newt Scamander to lead an intrepid team on a dangerous mission.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 5, 
+    title: ' Harry Potter and the Philosopher's Stone', 
+    year: 2001, 
+    runtime: '2h 32m',
+    director: 'Chris Columbus',
+    blurb: "An orphaned boy enrolls in a school of wizardry, where he learns the truth about himself, his family and the terrible evil that haunts the magical world.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 6, 
+    title: 'Harry Potter and the Chamber of Secrets', 
+    year: 2002, 
+    runtime: '2h 41m',
+    director: 'Chris Columbus',
+    blurb: "Harry Potter lives his second year at Hogwarts with Ron and Hermione when a message on the wall announces that the legendary Chamber of Secrets has been opened. The trio soon realize that, to save the school, it will take a lot of courage.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 7, 
+    title: 'Harry Potter and the Prisoner of Azkaban', 
+    year: 2004, 
+    runtime: '2h 22m',
+    director: 'Alfonso Cuarón',
+    blurb: "Harry Potter, Ron and Hermione return to Hogwarts School of Witchcraft and Wizardry for their third year of study, where they delve into the mystery surrounding an escaped prisoner who poses a dangerous threat to the young wizard.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 8, 
+    title: 'Harry Potter and the Goblet of Fire', 
+    year: 2005, 
+    runtime: '2h 37m',
+    director: 'Mike Newell',
+    blurb: "Harry Potter finds himself competing in a hazardous tournament between rival schools of magic, but he is distracted by recurring nightmares.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 9, 
+    title: 'Harry Potter and the Order of the Phoenix', 
+    year: 2007, 
+    runtime: '2h 18m',
+    director: 'David Yates',
+    blurb: "With their warning about Lord Voldemort's return scoffed at, Harry and Dumbledore are targeted by the Wizard authorities as an authoritarian bureaucrat slowly seizes power at Hogwarts.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 10, 
+    title: 'Harry Potter and the Half-Blood Prince', 
+    year: 2009, 
+    runtime: '2h 33m',
+    director: 'David Yates',
+    blurb: "As Harry Potter begins his sixth year at Hogwarts, he discovers an old book marked as "the property of the Half-Blood Prince" and begins to learn more about Lord Voldemort's dark past.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 11, 
+    title: 'Harry Potter and the Deathly Hallows – Part 1', 
+    year: 2010, 
+    runtime: '2h 26m',
+    director: 'David Yates',
+    blurb: "Harry Potter is tasked with the dangerous and seemingly impossible task of locating and destroying Voldemort's remaining Horcruxes. Harry must rely on Ron and Hermione more than ever, but dark forces threaten to tear them apart.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 12, 
+    title: 'Harry Potter and the Deathly Hallows – Part 2', 
+    year: 2011, 
+    runtime: '2h 10m',
+    director: 'David Yates',
+    blurb: "Harry, Ron and Hermione set out on a quest to eliminate the remaining horcruxes. On the other hand, the students and teachers must unite to defend Hogwarts against Lord Voldemort and his army.",
+    posterPath: ''
+),),
+
+**release order**
+MediaItem.movie(Movie(
+    number: 1, 
+    title: ' Harry Potter and the Philosopher's Stone', 
+    year: 2001, 
+    runtime: '2h 32m',
+    director: 'Chris Columbus',
+    blurb: "An orphaned boy enrolls in a school of wizardry, where he learns the truth about himself, his family and the terrible evil that haunts the magical world.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 2, 
+    title: 'Harry Potter and the Chamber of Secrets', 
+    year: 2002, 
+    runtime: '2h 41m',
+    director: 'Chris Columbus',
+    blurb: "Harry Potter lives his second year at Hogwarts with Ron and Hermione when a message on the wall announces that the legendary Chamber of Secrets has been opened. The trio soon realize that, to save the school, it will take a lot of courage.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 3, 
+    title: 'Harry Potter and the Prisoner of Azkaban', 
+    year: 2004, 
+    runtime: '2h 22m',
+    director: 'Alfonso Cuarón',
+    blurb: "Harry Potter, Ron and Hermione return to Hogwarts School of Witchcraft and Wizardry for their third year of study, where they delve into the mystery surrounding an escaped prisoner who poses a dangerous threat to the young wizard.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 4, 
+    title: 'Harry Potter and the Goblet of Fire', 
+    year: 2005, 
+    runtime: '2h 37m',
+    director: 'Mike Newell',
+    blurb: "Harry Potter finds himself competing in a hazardous tournament between rival schools of magic, but he is distracted by recurring nightmares.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 5, 
+    type: MediaType.movie, 
+    title: 'Harry Potter and the Order of the Phoenix', 
+    year: 2007, 
+    runtime: '2h 18m',
+    director: 'David Yates',
+    blurb: "With their warning about Lord Voldemort's return scoffed at, Harry and Dumbledore are targeted by the Wizard authorities as an authoritarian bureaucrat slowly seizes power at Hogwarts.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 6, 
+    title: 'Harry Potter and the Half-Blood Prince', 
+    year: 2009, 
+    runtime: '2h 33m',
+    director: 'David Yates',
+    blurb: "As Harry Potter begins his sixth year at Hogwarts, he discovers an old book marked as "the property of the Half-Blood Prince" and begins to learn more about Lord Voldemort's dark past.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 7, 
+    title: 'Harry Potter and the Deathly Hallows – Part 1', 
+    year: 2010, 
+    runtime: '2h 26m',
+    director: 'David Yates',
+    blurb: "Harry Potter is tasked with the dangerous and seemingly impossible task of locating and destroying Voldemort's remaining Horcruxes. Harry must rely on Ron and Hermione more than ever, but dark forces threaten to tear them apart.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 8, 
+    title: 'Harry Potter and the Deathly Hallows – Part 2', 
+    year: 2011, 
+    runtime: '2h 10m',
+    director: 'David Yates',
+    blurb: "Harry, Ron and Hermione set out on a quest to eliminate the remaining horcruxes. On the other hand, the students and teachers must unite to defend Hogwarts against Lord Voldemort and his army.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 9, 
+    title: 'Fantastic Beasts and Where to Find Them', 
+    year: 2016, 
+    runtime: '2h 12m',
+    director: 'David Yates',
+    blurb: "In 1926, magizoologist Newt Scamander arrives in New York during his worldwide tour to research and rescue magical creatures as something mysterious leaves trails of destruction in the city, threatening to expose the wizarding world.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 10, 
+    title: ' Fantastic Beasts: The Crimes of Grindelwald', 
+    year: 2018, 
+    runtime: '2h 14m',
+    director: 'David Yates',
+    blurb: "Gellert Grindelwald plans to raise an army of wizards to rule over non-magical beings. In response, Newt Scamander's former professor, Albus Dumbledore, seeks his help to stop him.",
+    posterPath: ''
+),),
+
+MediaItem.movie(Movie(
+    number: 11, 
+    title: ' Fantastic Beasts: The Secrets of Dumbledore', 
+    year: 2022, 
+    runtime: '2h 22m',
+    director: 'David Yates',
+    blurb: "Albus Dumbledore knows that Gellert Grindelwald is moving to take control of the wizarding world. Unable to stop him alone, he asks Newt Scamander to lead an intrepid team on a dangerous mission.",
+    posterPath: ''
+),),
+
+MediaItem.game(Game(
+    number: 12, 
+    title: 'Hogwarts Legacy', 
+    year: 2023, 
+    playtime: '25-80h',
+    developer: 'Avalanche Software',
+    blurb: "Set during the late 1800s, a newly enrolled student at Hogwarts discovers that they possess the unusual ability to perceive and master Ancient Magic, becoming the key to an old secret that threatens to tear the wizarding world apart.",
+    posterPath: ''
+),),
+
