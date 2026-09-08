@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "640872326585",
+    "project_id": "chronowarp-wbt",
+    "storage_bucket": "chronowarp-wbt.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640872326585:android:ff5515c2fa7ba612d98268",
+        "android_client_info": {
+          "package_name": "com.example.chronowarp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzP-5ipHMaI6nidgXNRdiJ5xoIYIVHrpY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
