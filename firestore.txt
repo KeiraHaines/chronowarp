@@ -32,5 +32,30 @@ service cloud.firestore {
       }
     }
 
+    match /users/{userId}/marathons/{marathonId} {
+      allow read, delete: if request.auth != null && request.auth.uid == userId;
+      allow create, update: if request.auth != null && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly([
+          'schemaVersion', 'title', 'universeId', 'order', 'entries', 'media', 'updatedAt'
+        ])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.title.size() <= 120
+        && request.resource.data.order == 'custom'
+        && request.resource.data.entries is list
+        && request.resource.data.entries.size() > 0
+        && request.resource.data.entries.size() <= 100
+        && request.resource.data.media is map
+        && request.resource.data.media.size() <= 100;
+    }
+    match /users/{userId}/marathonRuns/{runId} {
+      allow read, delete: if request.auth != null && request.auth.uid == userId;
+      allow create, update: if request.auth != null && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly(['schemaVersion', 'completed', 'updatedAt'])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.completed is map;
+    }
+
   }
 }
