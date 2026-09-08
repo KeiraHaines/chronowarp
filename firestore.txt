@@ -57,5 +57,16 @@ service cloud.firestore {
         && request.resource.data.completed is map;
     }
 
+    match /users/{userId}/marathonPhotos/{photoId} {
+      allow read, delete: if request.auth != null && request.auth.uid == userId;
+      allow create, update: if request.auth != null && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly(['schemaVersion', 'contentType', 'bytes', 'updatedAt'])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.contentType == 'image/jpeg'
+        && request.resource.data.bytes is bytes
+        && request.resource.data.bytes.size() > 0
+        && request.resource.data.bytes.size() <= 184320;
+    }
+
   }
 }
