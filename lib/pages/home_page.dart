@@ -1,3 +1,9 @@
+import '../transitions/portal_transition.dart';
+import '../widgets/custom_marathon_home_card.dart';
+import 'package:chronowarp/data/marathon_catalog.dart';
+import 'package:chronowarp/data/universe_configs.dart';
+import 'package:chronowarp/models/marathon.dart';
+import 'package:chronowarp/services/marathon_repository.dart';
 import 'package:chronowarp/data/marvel_data.dart';
 import 'package:chronowarp/data/lionking_data.dart';
 import 'package:chronowarp/data/pixar_data.dart';
@@ -42,6 +48,21 @@ class _HomePageState extends State<HomePage> {
   final _store = ProgressStore.instance;
   late final PageController _pageController;
   int _currentPage = 0;
+  late final _marathons = MarathonRepository.current();
+  late final _savedMarathons = _marathons.marathons();
+  List<MarathonDefinition> _savedDefinitions = [];
+  String? _focusMarathonId;
+  late final _releaseRuns = {
+    for (final c in availableUniverses)
+      c.title: _marathons.run(universeMarathon(c, ViewingOrder.release).id),
+  };
+
+  late final _personalLists = {
+    for (final c in availableUniverses)
+      c.title: _marathons.universeList(
+        universeMarathon(c, ViewingOrder.release).id,
+      ),
+  };
 
   late final List<HomeUniverseEntry> _entries = [
     HomeUniverseEntry(
@@ -50,7 +71,11 @@ class _HomePageState extends State<HomePage> {
       items: mcuReleaseOrder,
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const MarvelPage()),
+        PortalPageRoute(
+          builder: (context) => const MarvelPage(),
+          primary: marvelConfig.accentPrimary,
+          secondary: marvelConfig.accentSecondary,
+        ),
       ),
     ),
     HomeUniverseEntry(
@@ -59,16 +84,24 @@ class _HomePageState extends State<HomePage> {
       items: const [],
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const StarwarsPage()),
+        PortalPageRoute(
+          builder: (context) => const StarwarsPage(),
+          primary: starWarsConfig.accentPrimary,
+          secondary: starWarsConfig.accentSecondary,
+        ),
       ),
     ),
     HomeUniverseEntry(
       key: 'Lion King',
       backgroundImage: "assets/cards/lionking.png",
-      items: lionKingChronologicalOrder,
+      items: lionKingReleaseOrder,
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const LionKingPage()),
+        PortalPageRoute(
+          builder: (context) => const LionKingPage(),
+          primary: lionKingConfig.accentPrimary,
+          secondary: lionKingConfig.accentSecondary,
+        ),
       ),
     ),
     HomeUniverseEntry(
@@ -77,7 +110,11 @@ class _HomePageState extends State<HomePage> {
       items: pixarOrder,
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const PixarPage()),
+        PortalPageRoute(
+          builder: (context) => const PixarPage(),
+          primary: pixarConfig.accentPrimary,
+          secondary: pixarConfig.accentSecondary,
+        ),
       ),
     ),
   ];
@@ -107,8 +144,48 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => StreamBuilder(
+    stream: _savedMarathons,
+    builder: (context, snapshot) {
+      _savedDefinitions =
+          snapshot.data?.docs
+              .map((d) => MarathonDefinition.fromJson(d.id, d.data()))
+              .toList() ??
+          [];
+      _savedDefinitions.sort(
+        (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()),
+      );
+      final focusIndex = _savedDefinitions.indexWhere(
+        (m) => m.id == _focusMarathonId,
+      );
+      if (focusIndex >= 0) {
+        _focusMarathonId = null;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted && _pageController.hasClients)
+            _pageController.animateToPage(
+              _entries.length + focusIndex,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOut,
+            );
+        });
+      }
+      return _buildHome(context, _savedDefinitions, snapshot.hasError);
+    },
+  );
+
+  Widget _buildHome(
+    BuildContext context,
+    List<MarathonDefinition> saved,
+    bool savedError,
+  ) {
     final entries = _entries;
+    final cardCount = entries.length + saved.length;
+    if (_currentPage >= cardCount) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && _pageController.hasClients)
+          _pageController.jumpToPage(cardCount - 1);
+      });
+    }
     final dpr = MediaQuery.of(context).devicePixelRatio;
     final screenWidth = MediaQuery.of(context).size.width;
     final bottomPad = MediaQuery.of(context).padding.bottom;
@@ -139,9 +216,15 @@ class _HomePageState extends State<HomePage> {
                   child: PageView.builder(
                     controller: _pageController,
                     physics: const ClampingScrollPhysics(),
-                    itemCount: entries.length,
+                    itemCount: cardCount,
                     itemBuilder: (context, index) {
-                      return _buildCard(entries[index]);
+                      if (index < entries.length)
+                        return _buildCard(entries[index]);
+                      final marathon = saved[index - entries.length];
+                      return CustomMarathonHomeCard(
+                        key: ValueKey(marathon.id),
+                        marathon: marathon,
+                      );
                     },
                   ),
                 ),
@@ -149,23 +232,35 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 14),
 
                 // Page indicator dots
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(entries.length, (index) {
-                    final active = _currentPage == index;
-                    return AnimatedContainer(
-                      duration: const Duration(milliseconds: 250),
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      width: active ? 12 : 8,
-                      height: active ? 12 : 8,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: active
-                            ? const Color(0xFFD4622A)
-                            : Colors.white54,
-                      ),
-                    );
-                  }),
+                if (savedError)
+                  const Text(
+                    'Your marathons could not be loaded.',
+                    style: TextStyle(color: Colors.orangeAccent),
+                  ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minWidth: screenWidth),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(cardCount, (index) {
+                        final active = _currentPage == index;
+                        return AnimatedContainer(
+                          duration: const Duration(milliseconds: 250),
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          width: active ? 12 : 8,
+                          height: active ? 12 : 8,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: active
+                                ? const Color(0xFFD4622A)
+                                : Colors.white54,
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
                 ),
 
                 const SizedBox(height: 18),
@@ -222,8 +317,8 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           _navButton(
-            icon: Icons.explore_outlined,
-            label: 'Discover',
+            icon: Icons.live_tv_outlined,
+            label: 'Watch Parties',
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const WatchPartyDiscoverPage()),
@@ -299,10 +394,18 @@ class _HomePageState extends State<HomePage> {
 
   Widget _createButton() {
     return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => const CreateMarathonPage()),
-      ),
+      onTap: () async {
+        final result = await Navigator.push<MarathonDefinition>(
+          context,
+          MaterialPageRoute(
+            builder: (_) => CreateMarathonPage(
+              library: {for (final m in _savedDefinitions) ...m.media},
+            ),
+          ),
+        );
+        if (result != null && mounted)
+          setState(() => _focusMarathonId = result.id);
+      },
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -339,13 +442,89 @@ class _HomePageState extends State<HomePage> {
 
   // ── Card ────────────────────────────────────────────────────────────────
   Widget _buildCard(HomeUniverseEntry entry) {
-    final watched = _store.watchedFor(entry.key);
+    final config = universeConfigFor(entry.key);
+    if (config == null)
+      return _buildCardContent(entry, const {}, 'List not added yet');
+    final template = universeMarathon(config, ViewingOrder.release);
+    return StreamBuilder(
+      stream: _personalLists[config.title],
+      builder: (context, listSnapshot) {
+        final definition = listSnapshot.data?.exists == true
+            ? MarathonDefinition.fromJson(
+                template.id,
+                listSnapshot.data!.data()!,
+              )
+            : template;
+        final displayEntry = HomeUniverseEntry(
+          key: entry.key,
+          backgroundImage: entry.backgroundImage,
+          onTap: entry.onTap,
+          items: [
+            for (final (index, e) in definition.entries.indexed)
+              MediaItem(
+                number: index + 1,
+                title: definition.media[e.mediaId]!.title,
+                year: definition.media[e.mediaId]!.releaseYear ?? 0,
+                type: definition.media[e.mediaId]!.kind == MediaKind.season
+                    ? MediaType.show
+                    : MediaType.movie,
+                runtime: definition.media[e.mediaId]!.durationLabel,
+                episodes: definition.media[e.mediaId]!.kind == MediaKind.season
+                    ? e.units(definition.media[e.mediaId]!).length
+                    : null,
+              ),
+          ],
+        );
+        return StreamBuilder(
+          stream: _releaseRuns[config.title],
+          builder: (context, snapshot) {
+            final progress = MarathonRepository.progress(snapshot.data);
+            final watched = <int>{
+              for (final (index, e) in definition.entries.indexed)
+                if (progress.isComplete(e, definition.media[e.mediaId]!))
+                  index + 1,
+            };
+            return _buildCardContent(
+              displayEntry,
+              watched,
+              listSnapshot.hasError
+                  ? 'Your saved list is unavailable'
+                  : snapshot.hasError
+                  ? 'Progress unavailable'
+                  : !snapshot.hasData || !listSnapshot.hasData
+                  ? 'Loading progress…'
+                  : 'Release-order progress',
+              definition: definition,
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildCardContent(
+    HomeUniverseEntry entry,
+    Set<int> watched,
+    String progressLabel, {
+    MarathonDefinition? definition,
+  }) {
     final total = entry.items.length;
     final watchedCount = entry.items
         .where((i) => watched.contains(i.number))
         .length;
     final progress = total > 0 ? watchedCount / total : 0.0;
-    final movieCount = entry.items.where((i) => !i.isShow).length;
+    final movieCount = definition == null
+        ? entry.items.where((i) => !i.isShow).length
+        : definition.entries
+              .where(
+                (e) => definition.media[e.mediaId]!.kind == MediaKind.movie,
+              )
+              .length;
+    final gameCount =
+        definition?.entries
+            .where((e) => definition.media[e.mediaId]!.kind == MediaKind.game)
+            .length ??
+        0;
     final episodeCount = entry.items.fold<int>(
       0,
       (sum, i) => sum + (i.episodes ?? 0),
@@ -458,6 +637,14 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(height: 10),
                       ],
 
+                      Text(
+                        progressLabel,
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 10,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
                       // Progress bar
                       ClipRRect(
                         borderRadius: BorderRadius.circular(99),
@@ -478,8 +665,9 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 12),
 
                       // Stat row
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        runSpacing: 8,
                         children: [
                           _statItem(
                             Icons.movie_outlined,
@@ -487,6 +675,14 @@ class _HomePageState extends State<HomePage> {
                             'MOVIES',
                           ),
                           const SizedBox(width: 20),
+                          if (gameCount > 0) ...[
+                            _statItem(
+                              Icons.sports_esports_outlined,
+                              '$gameCount',
+                              'GAMES',
+                            ),
+                            const SizedBox(width: 12),
+                          ],
                           if (episodeCount > 0)
                             _statItem(
                               Icons.play_circle_outline,

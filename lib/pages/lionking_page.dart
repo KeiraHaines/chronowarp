@@ -1,4 +1,4 @@
-import 'package:chronowarp/data/lionking_data.dart';
+import 'package:chronowarp/data/universe_configs.dart';
 import 'package:chronowarp/widgets/universe_watch_page.dart';
 import 'package:flutter/material.dart';
 
@@ -7,22 +7,7 @@ class LionKingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UniverseWatchPage(
-      config: UniverseConfig(
-        title: 'The Lion King',
-        releaseItems: lionKingReleaseOrder,
-        chronologicalItems: lionKingChronologicalOrder,
-        bgPage: const Color(0XFF1F3A2E),
-        bgCard: const Color(0XFFFFF3CF),
-        bgChip: const Color(0XFF6FA66A),
-        accentPrimary: const Color(0XFFE6A23C),
-        accentSecondary: const Color(0XFFD94F30),
-        textPrimary: const Color(0XFFF6EAD1),
-        textMuted: const Color.fromARGB(255, 255, 255, 255),
-        textCard: const Color(0XFF3A2415),
-        textCardMuted: const Color(0XFF8A6A45),
-      ),
-    );
+    return UniverseWatchPage(config: lionKingConfig);
   }
 }
 

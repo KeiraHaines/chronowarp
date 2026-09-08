@@ -89,8 +89,45 @@ class MediaItem {
     this.categoryRating,
   });
 
+  /// Compatibility with the movie catalog's typed entries.
+  factory MediaItem.movie(Movie movie) => movie;
+
+  /// Show entries in this model each represent one season.
+  int? get seasons => isShow ? 1 : null;
+
   bool get isShow => type == MediaType.show;
 
   /// Derived overall rating from category scores.
   double? get rating => categoryRating?.average;
+}
+
+/// Movie metadata used by the catalog data files.
+class Movie extends MediaItem {
+  final String? director;
+
+  Movie({
+    required super.number,
+    required super.title,
+    required super.year,
+    super.runtime,
+    this.director,
+    super.posterPath,
+    super.blurb,
+    super.categoryRating,
+  }) : super(type: MediaType.movie);
+}
+
+/// Episode metadata consumed by the watch-progress store.
+class Episode {
+  final int episodeNumber;
+  final String title;
+
+  const Episode({required this.episodeNumber, required this.title});
+}
+
+class Season {
+  final int seasonNumber;
+  final List<Episode> episodes;
+
+  const Season({required this.seasonNumber, required this.episodes});
 }

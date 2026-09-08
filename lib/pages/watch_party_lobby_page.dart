@@ -1,3 +1,4 @@
+import '../widgets/profile_avatar.dart';
 import 'package:chronowarp/services/firestore_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:chronowarp/pages/watch_party_page.dart';
@@ -218,8 +219,10 @@ class _WatchPartyLobbyPageState extends State<WatchPartyLobbyPage> {
 
   Widget _friendInviteTile(String uid) {
     final invited = _invitedUids.contains(uid);
-    return FutureBuilder<Map<String, dynamic>?>(
-      future: _service.getUser(uid),
+    return StreamBuilder<Map<String, dynamic>?>(
+      stream: _service
+          .userStream(uid)
+          .map((doc) => doc.data() as Map<String, dynamic>?),
       builder: (context, snap) {
         final user = snap.data;
         return GestureDetector(
@@ -239,22 +242,17 @@ class _WatchPartyLobbyPageState extends State<WatchPartyLobbyPage> {
               color: invited ? _accent.withValues(alpha: 0.08) : _bgCard,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: invited ? _accent.withValues(alpha: 0.4) : Colors.transparent,
+                color: invited
+                    ? _accent.withValues(alpha: 0.4)
+                    : Colors.transparent,
               ),
             ),
             child: Row(
               children: [
-                CircleAvatar(
+                ProfileAvatar(
                   radius: 16,
-                  backgroundColor: _accent.withValues(alpha: 0.2),
-                  child: Text(
-                    (user?['displayName'] ?? '?')[0].toUpperCase(),
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: _accent,
-                    ),
-                  ),
+                  name: user?['displayName'] ?? '?',
+                  avatarId: user?['avatarId'] as String?,
                 ),
                 const SizedBox(width: 12),
                 Expanded(

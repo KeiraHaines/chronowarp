@@ -132,19 +132,25 @@ class _OverallRankingsPageState extends State<OverallRankingsPage>
                     ),
                   ),
                   const SizedBox(width: 14),
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Overall Rankings',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: _textPri,
-                          letterSpacing: -0.5,
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Overall Rankings',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: _textPri,
+                            letterSpacing: -0.5,
+                          ),
                         ),
-                      ),
-                    ],
+                        Text(
+                          'Your favourites, ranked across universes',
+                          style: TextStyle(fontSize: 13, color: _textMuted),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -157,9 +163,10 @@ class _OverallRankingsPageState extends State<OverallRankingsPage>
               child: Container(
                 decoration: BoxDecoration(
                   color: _bgCard,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: _accent.withValues(alpha: 0.3)),
                 ),
-                padding: const EdgeInsets.all(3),
+                padding: const EdgeInsets.all(4),
                 child: Scrollbar(
                   thumbVisibility: false,
                   interactive: true,
@@ -170,36 +177,50 @@ class _OverallRankingsPageState extends State<OverallRankingsPage>
                     isScrollable: true,
                     tabAlignment: TabAlignment.start,
                     dividerColor: Colors.transparent,
+                    dividerHeight: 0,
+                    indicatorPadding: const EdgeInsets.all(2),
+                    automaticIndicatorColorAdjustment: false,
+                    overlayColor: WidgetStateProperty.resolveWith((states) {
+                      if (states.contains(WidgetState.pressed) ||
+                          states.contains(WidgetState.focused) ||
+                          states.contains(WidgetState.hovered)) {
+                        return _accent.withValues(alpha: 0.15);
+                      }
+                      return Colors.transparent;
+                    }),
+                    splashBorderRadius: BorderRadius.circular(12),
 
-                    labelPadding: const EdgeInsets.symmetric(horizontal: 4),
+                    labelPadding: EdgeInsets.zero,
 
                     indicator: BoxDecoration(
-                      color: _bgChip,
-                      borderRadius: BorderRadius.circular(8),
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFFF39A55), Color(0xFFFFB703)],
+                      ),
+                      borderRadius: BorderRadius.circular(10),
                     ),
 
                     indicatorSize: TabBarIndicatorSize.tab,
 
-                    labelColor: _textPri,
-                    unselectedLabelColor: _textMuted,
+                    labelColor: _bgPage,
+                    unselectedLabelColor: const Color(0xFFE3D7C6),
 
                     labelStyle: const TextStyle(
                       fontSize: 13,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w700,
                     ),
 
                     unselectedLabelStyle: const TextStyle(
                       fontSize: 13,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w600,
                     ),
 
                     tabs: _categories
                         .map(
                           (category) => Tab(
-                            height: 36,
+                            height: 48,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
+                                horizontal: 16,
                               ),
                               child: Text(category),
                             ),

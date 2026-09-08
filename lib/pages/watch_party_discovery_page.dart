@@ -1,3 +1,4 @@
+import '../widgets/profile_avatar.dart';
 import 'package:chronowarp/data/marvel_data.dart';
 import 'package:chronowarp/data/lionking_data.dart';
 import 'package:chronowarp/models/media_item.dart';
@@ -537,23 +538,18 @@ class _MemberAvatarRow extends StatelessWidget {
     return Row(
       children: [
         ...visible.map(
-          (uid) => FutureBuilder<Map<String, dynamic>?>(
-            future: service.getUser(uid),
+          (uid) => StreamBuilder<Map<String, dynamic>?>(
+            stream: service
+                .userStream(uid)
+                .map((doc) => doc.data() as Map<String, dynamic>?),
             builder: (context, snap) {
               final name = snap.data?['displayName'] ?? '?';
               return Padding(
                 padding: const EdgeInsets.only(right: 4),
-                child: CircleAvatar(
+                child: ProfileAvatar(
                   radius: 12,
-                  backgroundColor: Colors.white.withOpacity(0.15),
-                  child: Text(
-                    name[0].toUpperCase(),
-                    style: const TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: _textPri,
-                    ),
-                  ),
+                  name: name,
+                  avatarId: snap.data?['avatarId'] as String?,
                 ),
               );
             },

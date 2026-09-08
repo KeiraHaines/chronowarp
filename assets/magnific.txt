@@ -1,0 +1,3 @@
+magnific
+
+great now I want to continue with the home pages. Can you make it look like this image using the assets I have. I want to keep my current background and tteh card art but would like the logo at the top, tteh dots to show what acrd you are one, and the app bar at the bottom of the screen.

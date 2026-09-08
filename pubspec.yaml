@@ -30,7 +30,6 @@ environment:
 dependencies:
   cloud_firestore: 6.6.0
   image_picker: ^1.1.2
-  firebase_storage: 13.4.3
   flutter:
     sdk: flutter
 
@@ -39,8 +38,10 @@ dependencies:
   cupertino_icons: ^1.0.8
   firebase_core: ^4.11.0
   firebase_auth: ^6.5.3
-
+  image: ^4.9.2
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
 
@@ -64,6 +65,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/avatars/marvel/
+    - assets/avatars/lionking/
     - assets/LogoLightNoBck.png
     - assets/DarkBannerReBck.png
     - assets/DarkLoginBck.png

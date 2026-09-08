@@ -1,3 +1,4 @@
+import '../widgets/profile_avatar.dart';
 import 'package:chronowarp/services/firestore_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -131,50 +132,83 @@ class _FriendsPageState extends State<FriendsPage>
 
             const SizedBox(height: 20),
 
-            // ── Tabs ───────────────────────────────────────────────
+            // Equal-width tabs with a consistent inset on every side.
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
-
               child: Container(
+                padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   color: _bgCard,
-
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: _accent.withValues(alpha: 0.3)),
                 ),
-
-                padding: const EdgeInsets.all(3),
-
                 child: TabBar(
                   controller: _tabs,
-
                   dividerColor: Colors.transparent,
-
+                  dividerHeight: 0,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  indicatorPadding: const EdgeInsets.all(2),
+                  labelPadding: EdgeInsets.zero,
+                  automaticIndicatorColorAdjustment: false,
                   indicator: BoxDecoration(
-                    color: _bgChip,
-
-                    borderRadius: BorderRadius.circular(8),
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFFF39A55), _accentAlt],
+                    ),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-
-                  labelColor: _textPri,
-
-                  unselectedLabelColor: _textMuted,
-
+                  overlayColor: WidgetStateProperty.resolveWith((states) {
+                    if (states.contains(WidgetState.pressed) ||
+                        states.contains(WidgetState.focused) ||
+                        states.contains(WidgetState.hovered)) {
+                      return _accent.withValues(alpha: 0.15);
+                    }
+                    return Colors.transparent;
+                  }),
+                  splashBorderRadius: BorderRadius.circular(12),
+                  labelColor: _bgPage,
+                  unselectedLabelColor: const Color(0xFFE3D7C6),
                   labelStyle: const TextStyle(
-                    fontSize: 13,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  unselectedLabelStyle: const TextStyle(
+                    fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
-
-                  unselectedLabelStyle: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400,
-                  ),
-
                   tabs: const [
-                    Tab(text: 'Friends', height: 36),
-
-                    Tab(text: 'Requests', height: 36),
-
-                    Tab(text: 'Find', height: 36),
+                    Tab(
+                      height: 48,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.people_outline_rounded, size: 17),
+                          SizedBox(width: 5),
+                          Text('Friends'),
+                        ],
+                      ),
+                    ),
+                    Tab(
+                      height: 48,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.mail_outline_rounded, size: 17),
+                          SizedBox(width: 5),
+                          Text('Requests'),
+                        ],
+                      ),
+                    ),
+                    Tab(
+                      height: 48,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.person_search_outlined, size: 17),
+                          SizedBox(width: 5),
+                          Text('Find'),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -231,8 +265,10 @@ class _FriendsPageState extends State<FriendsPage>
   }
 
   Widget _buildFriendTile(String uid) {
-    return FutureBuilder<Map<String, dynamic>?>(
-      future: _service.getUser(uid),
+    return StreamBuilder<Map<String, dynamic>?>(
+      stream: _service
+          .userStream(uid)
+          .map((doc) => doc.data() as Map<String, dynamic>?),
 
       builder: (context, snap) {
         final user = snap.data;
@@ -250,7 +286,10 @@ class _FriendsPageState extends State<FriendsPage>
 
           child: Row(
             children: [
-              _avatar(user?['displayName'] ?? '?'),
+              _avatar(
+                user?['displayName'] ?? '?',
+                user?['avatarId'] as String?,
+              ),
 
               const SizedBox(width: 12),
 
@@ -303,8 +342,10 @@ class _FriendsPageState extends State<FriendsPage>
 
             final fromUid = doc['fromUid'] as String;
 
-            return FutureBuilder<Map<String, dynamic>?>(
-              future: _service.getUser(fromUid),
+            return StreamBuilder<Map<String, dynamic>?>(
+              stream: _service
+                  .userStream(fromUid)
+                  .map((doc) => doc.data() as Map<String, dynamic>?),
 
               builder: (context, userSnap) {
                 final user = userSnap.data;
@@ -325,7 +366,10 @@ class _FriendsPageState extends State<FriendsPage>
 
                   child: Row(
                     children: [
-                      _avatar(user?['displayName'] ?? '?'),
+                      _avatar(
+                        user?['displayName'] ?? '?',
+                        user?['avatarId'] as String?,
+                      ),
 
                       const SizedBox(width: 12),
 
@@ -457,7 +501,10 @@ class _FriendsPageState extends State<FriendsPage>
 
                       child: Row(
                         children: [
-                          _avatar(user['displayName'] ?? '?'),
+                          _avatar(
+                            user['displayName'] ?? '?',
+                            user['avatarId'] as String?,
+                          ),
 
                           const SizedBox(width: 12),
 
@@ -496,25 +543,8 @@ class _FriendsPageState extends State<FriendsPage>
 
   // ── Helpers ────────────────────────────────────────────────────────────────
 
-  Widget _avatar(String name) {
-    return CircleAvatar(
-      radius: 18,
-
-      backgroundColor: _accent.withOpacity(0.15),
-
-      child: Text(
-        name.isNotEmpty ? name[0].toUpperCase() : '?',
-
-        style: const TextStyle(
-          fontSize: 14,
-
-          fontWeight: FontWeight.w700,
-
-          color: _accent,
-        ),
-      ),
-    );
-  }
+  Widget _avatar(String name, String? avatarId) =>
+      ProfileAvatar(name: name, avatarId: avatarId);
 
   Widget _actionButton(String label, Color color, VoidCallback onTap) {
     final filled = color == _accent;

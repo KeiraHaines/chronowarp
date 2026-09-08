@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
+import '../data/universe_configs.dart';
+import '../widgets/universe_watch_page.dart';
 
 class StarwarsPage extends StatelessWidget {
   const StarwarsPage({super.key});
-
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Star Wars")),
-      body: const Center(child: Text("Star Wars Page")),
-    );
-  }
+  Widget build(BuildContext context) =>
+      UniverseWatchPage(config: starWarsConfig);
 }

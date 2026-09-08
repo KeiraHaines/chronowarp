@@ -13,13 +13,15 @@ class FirestoreService {
   // ── User ────────────────────────────────────────────────────────────────────
 
   Future<void> ensureUserDoc(String displayName) async {
-    final ref = _db.collection('users').doc(_uid);
+    final user = _auth.currentUser;
+    if (user == null) return;
+    final ref = _db.collection('users').doc(user.uid);
     final snap = await ref.get();
     if (!snap.exists) {
       await ref.set({
         'displayName': displayName,
         'displayNameLower': displayName.toLowerCase(), // ← add this
-        'email': _auth.currentUser!.email,
+        'email': user.email,
         'friendIds': [],
         'pendingPartyInvites': [],
       });

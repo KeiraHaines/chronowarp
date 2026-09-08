@@ -1,0 +1,56 @@
+// Add INSIDE match /databases/{database}/documents in the existing rules.
+// Preserve all existing matches for users, friends, watch parties, and ratings.
+match /users/{userId}/marathons/{marathonId} {
+  allow read, delete: if request.auth != null && request.auth.uid == userId;
+  allow create, update: if request.auth != null && request.auth.uid == userId
+    && request.resource.data.keys().hasOnly([
+      'schemaVersion', 'title', 'universeId', 'order', 'entries', 'media', 'updatedAt'
+    ])
+    && request.resource.data.schemaVersion == 1
+    && request.resource.data.title is string
+    && request.resource.data.title.size() > 0
+    && request.resource.data.title.size() <= 120
+    && request.resource.data.order == 'custom'
+    && request.resource.data.entries is list
+    && request.resource.data.entries.size() > 0
+    && request.resource.data.entries.size() <= 100
+    && request.resource.data.media is map
+    && request.resource.data.media.size() <= 100;
+}
+match /users/{userId}/marathonRuns/{runId} {
+  allow read, delete: if request.auth != null && request.auth.uid == userId;
+  allow create, update: if request.auth != null && request.auth.uid == userId
+    && request.resource.data.keys().hasOnly(['schemaVersion', 'completed', 'updatedAt'])
+    && request.resource.data.schemaVersion == 1
+    && request.resource.data.completed is map;
+}
+
+match /users/{userId}/marathonPhotos/{photoId} {
+  allow read, delete: if request.auth != null && request.auth.uid == userId;
+  allow create, update: if request.auth != null && request.auth.uid == userId
+    && request.resource.data.keys().hasOnly(['schemaVersion', 'contentType', 'bytes', 'updatedAt'])
+    && request.resource.data.schemaVersion == 1
+    && request.resource.data.contentType == 'image/jpeg'
+    && request.resource.data.bytes is bytes
+    && request.resource.data.bytes.size() > 0
+    && request.resource.data.bytes.size() <= 184320;
+}
+
+match /users/{userId}/universeLists/{runId} {
+  allow read, delete: if request.auth != null && request.auth.uid == userId;
+  allow create, update: if request.auth != null && request.auth.uid == userId
+    && request.resource.data.keys().hasOnly([
+      'schemaVersion', 'title', 'universeId', 'order', 'entries', 'media', 'updatedAt'
+    ])
+    && request.resource.data.schemaVersion == 1
+    && request.resource.data.title is string
+    && request.resource.data.title.size() > 0
+    && request.resource.data.title.size() <= 120
+    && request.resource.data.order in ['release', 'chronological']
+    && request.resource.data.universeId is string
+    && request.resource.data.entries is list
+    && request.resource.data.entries.size() > 0
+    && request.resource.data.entries.size() <= 100
+    && request.resource.data.media is map
+    && request.resource.data.media.size() <= 100;
+}

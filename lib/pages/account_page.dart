@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../widgets/profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -9,6 +11,31 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  bool _savingAvatar = false;
+
+  Future<void> _chooseAvatar(String uid, String? current) async {
+    final selected = await Navigator.push<String>(
+      context,
+      MaterialPageRoute(builder: (_) => AvatarPicker(initialAvatarId: current)),
+    );
+    if (selected == null || selected == current || !mounted) return;
+    setState(() => _savingAvatar = true);
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(uid).set({
+        'avatarId': selected,
+      }, SetOptions(merge: true));
+    } catch (_) {
+      if (mounted)
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Could not save your avatar. Please try again.'),
+          ),
+        );
+    } finally {
+      if (mounted) setState(() => _savingAvatar = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
@@ -20,7 +47,9 @@ class _AccountPageState extends State<AccountPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        titleSpacing: 24,
+        toolbarHeight: 76,
+        leadingWidth: 60,
+        titleSpacing: 14,
         iconTheme: const IconThemeData(
           color: Colors.white, // back arrow colour
         ),
@@ -28,17 +57,22 @@ class _AccountPageState extends State<AccountPage> {
           "Profile",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        leading: Container(
-          margin: const EdgeInsets.only(left: 18, top: 8, bottom: 8),
-          decoration: BoxDecoration(
-            color: const Color.fromRGBO(40, 58, 68, 1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 24),
+          child: Center(
+            child: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.arrow_back, color: Color(0xFF8AABB4)),
+              style: IconButton.styleFrom(
+                backgroundColor: const Color.fromRGBO(40, 58, 68, 1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: EdgeInsets.zero,
+                minimumSize: const Size(36, 36),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+            ),
           ),
         ),
       ),
@@ -47,6 +81,44 @@ class _AccountPageState extends State<AccountPage> {
         child: Column(
           children: [
             const SizedBox(height: 10),
+            if (user != null)
+              StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(user.uid)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  final avatarId =
+                      snapshot.data?.data()?['avatarId'] as String?;
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        onTap: _savingAvatar
+                            ? null
+                            : () => _chooseAvatar(user.uid, avatarId),
+                        child: ProfileAvatar(
+                          avatarId: avatarId,
+                          name: displayName,
+                          radius: 56,
+                        ),
+                      ),
+                      TextButton.icon(
+                        onPressed: _savingAvatar
+                            ? null
+                            : () => _chooseAvatar(user.uid, avatarId),
+                        icon: const Icon(Icons.edit_outlined, size: 16),
+                        label: Text(
+                          _savingAvatar ? 'Saving…' : 'Choose avatar',
+                        ),
+                        style: TextButton.styleFrom(
+                          foregroundColor: const Color(0xFFF5DEB3),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            const SizedBox(height: 12),
 
             Text(
               displayName,

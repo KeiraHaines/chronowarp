@@ -157,30 +157,58 @@ class _RankingsPageState extends State<RankingsPage>
               child: Container(
                 decoration: BoxDecoration(
                   color: widget.bgCard,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: widget.accentPrimary.withValues(alpha: 0.3),
+                  ),
                 ),
-                padding: const EdgeInsets.all(3),
+                padding: const EdgeInsets.all(4),
                 child: TabBar(
                   controller: _tabController,
                   isScrollable: true,
                   tabAlignment: TabAlignment.start,
                   dividerColor: Colors.transparent,
+                  dividerHeight: 0,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  indicatorPadding: const EdgeInsets.all(2),
+                  labelPadding: EdgeInsets.zero,
+                  automaticIndicatorColorAdjustment: false,
+                  overlayColor: WidgetStateProperty.resolveWith((states) {
+                    if (states.contains(WidgetState.pressed) ||
+                        states.contains(WidgetState.focused) ||
+                        states.contains(WidgetState.hovered)) {
+                      return widget.accentPrimary.withValues(alpha: 0.15);
+                    }
+                    return Colors.transparent;
+                  }),
+                  splashBorderRadius: BorderRadius.circular(12),
                   indicator: BoxDecoration(
-                    color: widget.bgChip,
-                    borderRadius: BorderRadius.circular(8),
+                    gradient: LinearGradient(
+                      colors: [
+                        widget.accentPrimary,
+                        Color.lerp(widget.accentPrimary, Colors.white, 0.35)!,
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  labelColor: widget.textPrimary,
-                  unselectedLabelColor: widget.textCardMuted,
+                  labelColor: Colors.black,
+                  unselectedLabelColor: widget.textCard,
                   labelStyle: const TextStyle(
                     fontSize: 13,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w700,
                   ),
                   unselectedLabelStyle: const TextStyle(
                     fontSize: 13,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w600,
                   ),
                   tabs: _categories
-                      .map((c) => Tab(text: c, height: 36))
+                      .map((c) => Tab(
+                        height: 48,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(c),
+                        ),
+                      ))
                       .toList(),
                 ),
               ),

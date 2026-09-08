@@ -1,7 +1,12 @@
+import '../pages/create_marathon_page.dart';
+import 'marathon_image.dart';
 import 'package:chronowarp/pages/ranking_page.dart';
-import 'package:chronowarp/pages/rating_page.dart';
+import 'media_rating_sheet.dart';
 import 'package:chronowarp/models/media_item.dart';
-import 'package:chronowarp/stores/progress_store.dart';
+import 'dart:async';
+import '../data/marathon_catalog.dart';
+import '../models/marathon.dart';
+import '../services/marathon_repository.dart';
 import 'package:flutter/material.dart';
 
 class UniverseConfig {
@@ -38,8 +43,13 @@ class UniverseConfig {
 
 class UniverseWatchPage extends StatefulWidget {
   final UniverseConfig config;
+  final ViewingOrder initialOrder;
 
-  const UniverseWatchPage({super.key, required this.config});
+  const UniverseWatchPage({
+    super.key,
+    required this.config,
+    this.initialOrder = ViewingOrder.release,
+  });
 
   @override
   State<UniverseWatchPage> createState() => _UniverseWatchPageState();
@@ -47,19 +57,176 @@ class UniverseWatchPage extends StatefulWidget {
 
 class _UniverseWatchPageState extends State<UniverseWatchPage> {
   bool _isReleaseOrder = true;
-  final _store = ProgressStore.instance;
+  late final MarathonRepository _repository;
+  late MarathonDefinition _marathon;
+  List<MediaItem> _displayItems = [];
+  StreamSubscription? _subscription;
+  StreamSubscription? _listSubscription;
+  bool _listReady = false;
+  String? _listError;
+  final Map<String, CategoryRating?> _ratings = {};
+  RunProgress _progress = RunProgress.fromJson({});
+  bool _ready = false;
+  String? _syncError;
+  final Set<String> _pending = {};
 
   UniverseConfig get c => widget.config;
 
-  Set<int> get _watched => _store.watchedFor(c.key);
+  Set<int> get _watched => {
+    for (var index = 0; index < _activeItems.length; index++)
+      if (_progress.isComplete(
+        _marathon.entries[index],
+        _marathon.media[_marathon.entries[index].mediaId]!,
+      ))
+        _activeItems[index].number,
+  };
 
-  List<MediaItem> get _activeItems =>
-      _isReleaseOrder ? c.releaseItems : c.chronologicalItems;
+  MarathonEntry _entry(MediaItem item) =>
+      _marathon.entries[_activeItems.indexOf(item)];
 
-  int get _movieCount => _activeItems.where((i) => !i.isShow).length;
+  void _applyMarathon(MarathonDefinition marathon) {
+    _marathon = marathon;
+
+    _displayItems = [
+      for (final (index, entry) in marathon.entries.indexed)
+        MediaItem(
+          number: index + 1,
+          title: marathon.media[entry.mediaId]!.title,
+          year:
+              marathon.media[entry.mediaId]!.releaseYear ??
+              int.tryParse(
+                marathon.media[entry.mediaId]!.releaseDate?.substring(0, 4) ??
+                    '',
+              ) ??
+              0,
+          type: marathon.media[entry.mediaId]!.kind == MediaKind.season
+              ? MediaType.show
+              : MediaType.movie,
+          runtime: marathon.media[entry.mediaId]!.durationLabel,
+          episodes: marathon.media[entry.mediaId]!.kind == MediaKind.season
+              ? entry.units(marathon.media[entry.mediaId]!).length
+              : null,
+          posterPath: marathon.media[entry.mediaId]!.poster,
+          blurb: marathon.media[entry.mediaId]!.blurb,
+          categoryRating: _ratings[entry.mediaId],
+        ),
+    ];
+  }
+
+  void _listen() {
+    _subscription?.cancel();
+    _listSubscription?.cancel();
+    _listReady = false;
+    _listError = null;
+    _applyMarathon(
+      universeMarathon(
+        c,
+        _isReleaseOrder ? ViewingOrder.release : ViewingOrder.chronological,
+      ),
+    );
+    _progress = RunProgress.fromJson({});
+    _ready = false;
+    _syncError = null;
+    final runId = _marathon.id;
+    _listSubscription = _repository
+        .universeList(runId)
+        .listen(
+          (snapshot) {
+            if (!mounted || _marathon.id != runId) return;
+            try {
+              final definition = snapshot.exists
+                  ? MarathonDefinition.fromJson(runId, snapshot.data()!)
+                  : universeMarathon(
+                      c,
+                      _isReleaseOrder
+                          ? ViewingOrder.release
+                          : ViewingOrder.chronological,
+                    );
+              setState(() {
+                _applyMarathon(definition);
+                _listReady = true;
+                _listError = null;
+              });
+            } catch (_) {
+              setState(() {
+                _listReady = false;
+                _listError = 'Your saved list could not be read.';
+              });
+            }
+          },
+          onError: (Object error) {
+            if (!mounted || _marathon.id != runId) return;
+            setState(() {
+              _listReady = false;
+              _listError =
+                  'Your saved list could not be loaded. Check your connection and account access.';
+            });
+          },
+        );
+    _subscription = _repository
+        .run(runId)
+        .listen(
+          (snapshot) {
+            if (!mounted || _marathon.id != runId) return;
+            setState(() {
+              _progress = MarathonRepository.progress(snapshot);
+              _ready = true;
+              _syncError = null;
+            });
+          },
+          onError: (Object error) {
+            if (!mounted || _marathon.id != runId) return;
+            setState(() {
+              _ready = false;
+              _syncError =
+                  'Progress unavailable. Check your connection and account access.';
+            });
+          },
+        );
+  }
+
+  Future<void> _mark(
+    MarathonEntry entry,
+    List<String> units,
+    bool value,
+  ) async {
+    final runId = _marathon.id;
+    final key = '$runId/${entry.id}';
+    if (!_ready || !_listReady || _pending.contains(key)) return;
+    setState(() => _pending.add(key));
+    try {
+      await _repository
+          .setCompleted(runId, entry, units, value)
+          .timeout(const Duration(seconds: 20));
+    } catch (_) {
+      if (mounted)
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Could not confirm progress sync. Please try again.'),
+          ),
+        );
+    } finally {
+      if (mounted) setState(() => _pending.remove(key));
+    }
+  }
+
+  List<MediaItem> get _activeItems => _displayItems;
+
+  int get _movieCount => _marathon.entries
+      .where((e) => _marathon.media[e.mediaId]!.kind == MediaKind.movie)
+      .length;
+  int get _gameCount => _marathon.entries
+      .where((e) => _marathon.media[e.mediaId]!.kind == MediaKind.game)
+      .length;
   int get _showCount => _activeItems.where((i) => i.isShow).length;
-  int get _totalEpisodes =>
-      _activeItems.fold(0, (sum, i) => sum + (i.episodes ?? 0));
+  int get _totalEpisodes => _marathon.entries.fold(
+    0,
+    (sum, entry) =>
+        sum +
+        (_marathon.media[entry.mediaId]!.kind == MediaKind.season
+            ? entry.units(_marathon.media[entry.mediaId]!).length
+            : 0),
+  );
 
   MediaItem? get _nextUp {
     try {
@@ -72,17 +239,34 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
   @override
   void initState() {
     super.initState();
-    _store.addListener(_onStoreChanged);
+    _isReleaseOrder = widget.initialOrder != ViewingOrder.chronological;
+    _repository = MarathonRepository.current();
+    for (final item in c.releaseItems) {
+      _ratings[mediaIdFor(universeIdFor(c.title), item)] = item.categoryRating;
+    }
+    _listen();
   }
 
   @override
   void dispose() {
-    _store.removeListener(_onStoreChanged);
+    _subscription?.cancel();
+    _listSubscription?.cancel();
     super.dispose();
   }
 
-  void _onStoreChanged() {
-    if (mounted) setState(() {});
+  Future<void> _editList() async {
+    final result = await Navigator.push<MarathonDefinition>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => MarathonDraftPage(
+          initialMarathon: _marathon,
+          saveChanges: _repository.saveUniverseList,
+        ),
+      ),
+    );
+    if (result != null && mounted && result.id == _marathon.id) {
+      setState(() => _applyMarathon(result));
+    }
   }
 
   @override
@@ -117,7 +301,20 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
                         _buildStatRow(),
                         const SizedBox(height: 16),
                         _buildProgressBar(),
+                        if (!_ready)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: Text(
+                              _syncError ?? 'Loading account progress…',
+                              style: TextStyle(color: c.textMuted),
+                            ),
+                          ),
                         _buildOrderToggle(),
+                        if (!_listReady)
+                          Text(
+                            _listError ?? 'Loading your list…',
+                            style: TextStyle(color: c.textMuted),
+                          ),
                         const SizedBox(height: 16),
                         _buildItemList(context),
                       ],
@@ -165,6 +362,21 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
               ),
               const Spacer(),
               IconButton(
+                tooltip: 'Edit this order',
+                onPressed: _listReady && _pending.isEmpty ? _editList : null,
+                icon: Icon(Icons.edit_outlined, color: c.accentPrimary),
+                style: IconButton.styleFrom(
+                  backgroundColor: c.bgCard,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.zero,
+                  minimumSize: const Size(36, 36),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+              ),
+              const SizedBox(width: 6),
+              IconButton(
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -202,14 +414,18 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
   }
 
   Widget _buildStatRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: 8,
+      runSpacing: 8,
       children: [
         _statChip(Icons.movie_outlined, '$_movieCount movies'),
         const SizedBox(width: 8),
         _statChip(Icons.tv_outlined, '$_showCount shows'),
         const SizedBox(width: 8),
         _statChip(Icons.play_circle_outline, '$_totalEpisodes episodes'),
+        if (_gameCount > 0)
+          _statChip(Icons.sports_esports_outlined, '$_gameCount games'),
       ],
     );
   }
@@ -295,12 +511,18 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
         children: [
           Expanded(
             child: _toggleOption('Release Order', _isReleaseOrder, () {
-              setState(() => _isReleaseOrder = true);
+              setState(() {
+                _isReleaseOrder = true;
+                _listen();
+              });
             }),
           ),
           Expanded(
             child: _toggleOption('Chronological Order', !_isReleaseOrder, () {
-              setState(() => _isReleaseOrder = false);
+              setState(() {
+                _isReleaseOrder = false;
+                _listen();
+              });
             }),
           ),
         ],
@@ -332,6 +554,14 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
   }
 
   Widget _buildItemList(BuildContext context) {
+    if (_activeItems.isEmpty)
+      return Padding(
+        padding: const EdgeInsets.all(16),
+        child: Text(
+          'This order has not been added yet.',
+          style: TextStyle(color: c.textPrimary),
+        ),
+      );
     final nextUp = _nextUp;
     return Column(
       children: _activeItems
@@ -342,6 +572,13 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
 
   Widget _buildItemCard(BuildContext context, MediaItem item, bool isNextUp) {
     final isWatched = _watched.contains(item.number);
+    final entry = _entry(item);
+    final media = _marathon.media[entry.mediaId]!;
+    final units = entry.units(media);
+    final enabled =
+        _ready &&
+        _listReady &&
+        !_pending.contains('${_marathon.id}/${entry.id}');
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
@@ -355,9 +592,7 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () {
-          _store.toggle(c.key, item.number);
-        },
+        onTap: enabled ? () => _mark(entry, units, !isWatched) : null,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -410,10 +645,7 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
                           ),
                         ),
                         const SizedBox(height: 3),
-                        if (item.isShow)
-                          _buildShowMeta(item)
-                        else
-                          _buildMovieMeta(item),
+                        _buildMediaMeta(media),
                       ],
                     ),
                   ),
@@ -421,25 +653,30 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
                   // Rate button
                   GestureDetector(
                     onTap: () async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => RatingPage(
-                            item: item,
-                            onRated: (rating) {
-                              setState(() => item.categoryRating = rating);
-                            },
-                            bgPage: c.bgPage,
-                            bgCard: c.bgCard,
-                            bgChip: c.bgChip,
-                            accentPrimary: c.accentPrimary,
-                            accentSecondary: c.accentSecondary,
-                            textPrimary: c.textPrimary,
-                            textMuted: c.textMuted,
-                            textCard: c.textCard,
-                            textCardMuted: c.textCardMuted,
-                          ),
-                        ),
+                      await showMediaRatingSheet(
+                        context: context,
+                        title: item.title,
+                        initialRating: item.categoryRating,
+                        onSave: (rating) {
+                          setState(() {
+                            item.categoryRating = rating;
+                            _ratings[media.id] = rating;
+                            for (final original in c.releaseItems) {
+                              if (mediaIdFor(
+                                    universeIdFor(c.title),
+                                    original,
+                                  ) ==
+                                  media.id)
+                                original.categoryRating = rating;
+                            }
+                          });
+                        },
+                        bgCard: c.bgCard,
+                        bgChip: c.bgChip,
+                        accentPrimary: c.accentPrimary,
+                        accentSecondary: c.accentSecondary,
+                        textCard: c.textCard,
+                        textCardMuted: c.textCardMuted,
                       );
                     },
                     child: item.rating != null
@@ -484,6 +721,42 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
               ),
             ),
 
+            if (media.kind == MediaKind.season)
+              Theme(
+                data: Theme.of(
+                  context,
+                ).copyWith(dividerColor: Colors.transparent),
+                child: ExpansionTile(
+                  key: PageStorageKey('${_marathon.id}/${entry.id}'),
+                  iconColor: c.accentPrimary,
+                  collapsedIconColor: c.accentPrimary,
+                  title: Text(
+                    'Episodes · ${_progress.count(entry, media)} of ${units.length} watched',
+                    style: TextStyle(fontSize: 12, color: c.textCardMuted),
+                  ),
+                  children: [
+                    for (final unit in units)
+                      CheckboxListTile(
+                        dense: true,
+                        controlAffinity: ListTileControlAffinity.leading,
+                        activeColor: c.accentPrimary,
+                        title: Text(
+                          media.episodes
+                              .firstWhere((e) => e.id == unit)
+                              .detailsLabel,
+                          style: TextStyle(color: c.textCard, fontSize: 13),
+                        ),
+                        value:
+                            _progress.completed[entry.id]?.contains(unit) ??
+                            false,
+                        onChanged: enabled
+                            ? (value) => _mark(entry, [unit], value ?? false)
+                            : null,
+                      ),
+                  ],
+                ),
+              ),
+
             // ── Poster (next up only) — standard 2:3 movie poster ratio ───
             if (isNextUp)
               Padding(
@@ -493,7 +766,10 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
                   child: AspectRatio(
                     aspectRatio: 2 / 3,
                     child: item.posterPath != null
-                        ? Image.asset(item.posterPath!, fit: BoxFit.cover)
+                        ? MarathonImage(
+                            source: item.posterPath!,
+                            fit: BoxFit.cover,
+                          )
                         : Container(
                             color: c.bgChip,
                             child: Column(
@@ -540,52 +816,20 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
     );
   }
 
-  Widget _buildMovieMeta(MediaItem item) {
-    return Row(
-      children: [
-        Icon(Icons.calendar_today_outlined, size: 12, color: c.textCardMuted),
-        const SizedBox(width: 4),
-        Text(
-          '${item.year}',
-          style: TextStyle(fontSize: 12, color: c.textCardMuted),
-        ),
-        if (item.runtime != null) ...[
-          const SizedBox(width: 8),
-          Icon(Icons.access_time_outlined, size: 12, color: c.textCardMuted),
-          const SizedBox(width: 4),
-          Text(
-            item.runtime!,
-            style: TextStyle(fontSize: 12, color: c.textCardMuted),
+  Widget _buildMediaMeta(CatalogMedia media) {
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(text: '${media.dateLabel} · ${media.durationLabel}'),
+          TextSpan(
+            text:
+                ' · Director: ${media.director?.trim().isNotEmpty == true ? media.director : 'Not added yet'}',
           ),
+          if (media.kind == MediaKind.season)
+            TextSpan(text: ' · ${media.episodes.length} episodes'),
         ],
-      ],
-    );
-  }
-
-  Widget _buildShowMeta(MediaItem item) {
-    return Row(
-      children: [
-        Icon(Icons.calendar_today_outlined, size: 12, color: c.textCardMuted),
-        const SizedBox(width: 4),
-        Text(
-          '${item.year}',
-          style: TextStyle(fontSize: 12, color: c.textCardMuted),
-        ),
-        const SizedBox(width: 8),
-        Icon(Icons.layers_outlined, size: 13, color: c.textCardMuted),
-        const SizedBox(width: 4),
-        Text(
-          '${item.seasons} season${(item.seasons ?? 0) > 1 ? 's' : ''}',
-          style: TextStyle(fontSize: 12, color: c.textCardMuted),
-        ),
-        const SizedBox(width: 8),
-        Icon(Icons.play_circle_outline, size: 13, color: c.textCardMuted),
-        const SizedBox(width: 4),
-        Text(
-          '${item.episodes} episodes',
-          style: TextStyle(fontSize: 12, color: c.textCardMuted),
-        ),
-      ],
+      ),
+      style: TextStyle(fontSize: 12, color: c.textCardMuted, height: 1.4),
     );
   }
 }
