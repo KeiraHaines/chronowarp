@@ -4,7 +4,7 @@ match /users/{userId}/marathons/{marathonId} {
   allow read, delete: if request.auth != null && request.auth.uid == userId;
   allow create, update: if request.auth != null && request.auth.uid == userId
     && request.resource.data.keys().hasOnly([
-      'schemaVersion', 'title', 'universeId', 'order', 'entries', 'media', 'updatedAt'
+      'schemaVersion', 'title', 'colourTheme', 'universeId', 'order', 'entries', 'media', 'updatedAt'
     ])
     && request.resource.data.schemaVersion == 1
     && request.resource.data.title is string

@@ -1,3 +1,6 @@
+import 'dart:async';
+import '../data/marathon_catalog.dart';
+import '../models/watch_stats.dart';
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -52,6 +55,79 @@ class MarathonRepository {
         for (final doc in snapshot.docs)
           ...MarathonDefinition.fromJson(doc.id, doc.data()).media,
     };
+  }
+
+  Stream<WatchStats> watchStats() {
+    late StreamController<WatchStats> controller;
+    final subscriptions =
+        <StreamSubscription<QuerySnapshot<Map<String, dynamic>>>>[];
+    final latest = <int, QuerySnapshot<Map<String, dynamic>>>{};
+    void emit() {
+      if (latest.length != 3) return;
+      try {
+        final definitions = <String, MarathonDefinition>{
+          for (final config in availableUniverses)
+            for (final order in [
+              ViewingOrder.release,
+              ViewingOrder.chronological,
+            ])
+              universeMarathon(config, order).id: universeMarathon(
+                config,
+                order,
+              ),
+        };
+        // Personal edits supersede the built-in universe templates.
+        for (final index in [1, 2]) {
+          for (final doc in latest[index]!.docs) {
+            definitions[doc.id] = MarathonDefinition.fromJson(
+              doc.id,
+              doc.data(),
+            );
+          }
+        }
+        final runs = {
+          for (final doc in latest[0]!.docs)
+            doc.id: RunProgress.fromJson(
+              Map<String, dynamic>.from(doc.data()['completed'] as Map? ?? {}),
+            ),
+        };
+        controller.add(WatchStats.calculate(definitions.values, runs));
+      } catch (error, stack) {
+        controller.addError(error, stack);
+      }
+    }
+
+    controller = StreamController<WatchStats>(
+      onListen: () {
+        final collections = [
+          _runs,
+          db.collection('users').doc(uid).collection('universeLists'),
+          _marathons,
+        ];
+        for (final (index, collection) in collections.indexed) {
+          subscriptions.add(
+            collection
+                .snapshots(includeMetadataChanges: true)
+                .listen(
+                  (snapshot) {
+                    latest[index] = snapshot;
+                    emit();
+                  },
+                  onError: (Object error, StackTrace stack) {
+                    latest.remove(index);
+                    controller.addError(error, stack);
+                  },
+                ),
+          );
+        }
+      },
+      onCancel: () async {
+        for (final subscription in subscriptions) {
+          await subscription.cancel();
+        }
+      },
+    );
+    return controller.stream;
   }
 
   String newId() => _marathons.doc().id;

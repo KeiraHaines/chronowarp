@@ -1,0 +1,449 @@
+{
+  "retrieved": "2026-09-09",
+  "source": "universe/starwars.txt",
+  "sourceSha256": "688db26120bed487b230072877f0a096b24f5761bd14f0e583cb52029edbeeb9",
+  "sourceSteps": 72,
+  "records": [
+    {
+      "id": "star-wars-star-wars-dawn-of-the-jedi",
+      "title": "Star Wars: Dawn of the Jedi",
+      "releaseDate": null,
+      "source": "universe/starwars.txt",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-202998-season-1",
+      "title": "Star Wars: Young Jedi Adventures — Season 1",
+      "releaseDate": "2023-05-04",
+      "source": "https://www.themoviedb.org/tv/202998/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-202998-season-2",
+      "title": "Star Wars: Young Jedi Adventures — Season 2",
+      "releaseDate": "2024-08-14",
+      "source": "https://www.themoviedb.org/tv/202998/season/2",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-202998-season-3",
+      "title": "Star Wars: Young Jedi Adventures — Season 3",
+      "releaseDate": "2025-12-08",
+      "source": "https://www.themoviedb.org/tv/202998/season/3",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-114479-season-1",
+      "title": "The Acolyte — Season 1",
+      "releaseDate": "2024-06-04",
+      "source": "https://www.themoviedb.org/tv/114479/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-203085-season-1",
+      "title": "Star Wars: Tales of the Jedi — Season 1",
+      "releaseDate": "2022-10-26",
+      "source": "https://www.themoviedb.org/tv/203085/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-288055-season-1",
+      "title": "Star Wars: Tales of the Underworld — Season 1",
+      "releaseDate": "2025-05-04",
+      "source": "https://www.themoviedb.org/tv/288055/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-1893",
+      "title": "Star Wars: Episode I - The Phantom Menace",
+      "releaseDate": "1999-05-19",
+      "source": "https://www.themoviedb.org/movie/1893",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-1894",
+      "title": "Star Wars: Episode II - Attack of the Clones",
+      "releaseDate": "2002-05-16",
+      "source": "https://www.themoviedb.org/movie/1894",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-3122-season-1",
+      "title": "Star Wars: Clone Wars — Season 1",
+      "releaseDate": "2003-11-07",
+      "source": "https://www.themoviedb.org/tv/3122/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-3122-season-2",
+      "title": "Star Wars: Clone Wars — Season 2",
+      "releaseDate": "2004-03-26",
+      "source": "https://www.themoviedb.org/tv/3122/season/2",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-3122-season-3",
+      "title": "Star Wars: Clone Wars — Season 3",
+      "releaseDate": "2005-03-21",
+      "source": "https://www.themoviedb.org/tv/3122/season/3",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-4194-season-2",
+      "title": "Star Wars: The Clone Wars — Season 2",
+      "releaseDate": "2009-10-02",
+      "source": "https://www.themoviedb.org/tv/4194/season/2",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-4194-season-1",
+      "title": "Star Wars: The Clone Wars — Season 1",
+      "releaseDate": "2008-10-03",
+      "source": "https://www.themoviedb.org/tv/4194/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-12180",
+      "title": "Star Wars: The Clone Wars",
+      "releaseDate": "2008-08-15",
+      "source": "https://www.themoviedb.org/movie/12180",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-4194-season-3",
+      "title": "Star Wars: The Clone Wars — Season 3",
+      "releaseDate": "2010-09-17",
+      "source": "https://www.themoviedb.org/tv/4194/season/3",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-4194-season-4",
+      "title": "Star Wars: The Clone Wars — Season 4",
+      "releaseDate": "2011-09-16",
+      "source": "https://www.themoviedb.org/tv/4194/season/4",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-251091-season-1",
+      "title": "Star Wars: Tales of the Empire — Season 1",
+      "releaseDate": "2024-05-04",
+      "source": "https://www.themoviedb.org/tv/251091/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-4194-season-5",
+      "title": "Star Wars: The Clone Wars — Season 5",
+      "releaseDate": "2012-09-29",
+      "source": "https://www.themoviedb.org/tv/4194/season/5",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-4194-season-6",
+      "title": "Star Wars: The Clone Wars — Season 6",
+      "releaseDate": "2014-03-07",
+      "source": "https://www.themoviedb.org/tv/4194/season/6",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-4194-season-0",
+      "title": "Star Wars: The Clone Wars — Crystal Crisis on Utapau (Story Reels)",
+      "releaseDate": "2014-09-25",
+      "source": "https://www.themoviedb.org/tv/4194/season/0",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-darth-maul-son-of-dathomir-audio-comic",
+      "title": "Darth Maul: Son of Dathomir (Audio Comic)",
+      "releaseDate": null,
+      "source": "universe/starwars.txt",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-4194-season-7",
+      "title": "Star Wars: The Clone Wars — Season 7",
+      "releaseDate": "2020-02-21",
+      "source": "https://www.themoviedb.org/tv/4194/season/7",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-1895",
+      "title": "Star Wars: Episode III - Revenge of the Sith",
+      "releaseDate": "2005-05-19",
+      "source": "https://www.themoviedb.org/movie/1895",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-105971-season-1",
+      "title": "Star Wars: The Bad Batch — Season 1",
+      "releaseDate": "2021-05-04",
+      "source": "https://www.themoviedb.org/tv/105971/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-105971-season-2",
+      "title": "Star Wars: The Bad Batch — Season 2",
+      "releaseDate": "2023-01-04",
+      "source": "https://www.themoviedb.org/tv/105971/season/2",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-105971-season-3",
+      "title": "Star Wars: The Bad Batch — Season 3",
+      "releaseDate": "2024-02-21",
+      "source": "https://www.themoviedb.org/tv/105971/season/3",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-289219-season-1",
+      "title": "Star Wars: Maul - Shadow Lord — Season 1",
+      "releaseDate": "2026-04-06",
+      "source": "https://www.themoviedb.org/tv/289219/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-25-season-1",
+      "title": "Star Wars: Droids — Season 1",
+      "releaseDate": "1985-09-07",
+      "source": "https://www.themoviedb.org/tv/25/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-248931",
+      "title": "The Great Heep",
+      "releaseDate": "1986-06-07",
+      "source": "https://www.themoviedb.org/movie/248931",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-348350",
+      "title": "Solo: A Star Wars Story",
+      "releaseDate": "2018-05-25",
+      "source": "https://www.themoviedb.org/movie/348350",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-92830-season-1",
+      "title": "Obi-Wan Kenobi — Season 1",
+      "releaseDate": "2022-05-26",
+      "source": "https://www.themoviedb.org/tv/92830/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-83867-season-1",
+      "title": "Andor — Season 1",
+      "releaseDate": "2022-09-21",
+      "source": "https://www.themoviedb.org/tv/83867/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-60554-season-0",
+      "title": "Star Wars: Rebels — Shorts",
+      "releaseDate": "2014-08-11",
+      "source": "https://www.themoviedb.org/tv/60554/season/0",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-60554-season-1",
+      "title": "Star Wars: Rebels — Season 1",
+      "releaseDate": "2014-10-03",
+      "source": "https://www.themoviedb.org/tv/60554/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-83867-season-2",
+      "title": "Andor — Season 2",
+      "releaseDate": "2025-04-22",
+      "source": "https://www.themoviedb.org/tv/83867/season/2",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-60554-season-2",
+      "title": "Star Wars: Rebels — Season 2",
+      "releaseDate": "2015-06-20",
+      "source": "https://www.themoviedb.org/tv/60554/season/2",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-60554-season-3",
+      "title": "Star Wars: Rebels — Season 3",
+      "releaseDate": "2016-09-24",
+      "source": "https://www.themoviedb.org/tv/60554/season/3",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-60554-season-4",
+      "title": "Star Wars: Rebels — Season 4",
+      "releaseDate": "2017-10-16",
+      "source": "https://www.themoviedb.org/tv/60554/season/4",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-330459",
+      "title": "Rogue One: A Star Wars Story",
+      "releaseDate": "2016-12-16",
+      "source": "https://www.themoviedb.org/movie/330459",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-11",
+      "title": "Star Wars: Episode IV - A New Hope",
+      "releaseDate": "1977-05-25",
+      "source": "https://www.themoviedb.org/movie/11",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-74849",
+      "title": "The Star Wars Holiday Special",
+      "releaseDate": "1978-11-17",
+      "source": "https://www.themoviedb.org/movie/74849",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-1891",
+      "title": "Star Wars: Episode V - The Empire Strikes Back",
+      "releaseDate": "1980-05-21",
+      "source": "https://www.themoviedb.org/movie/1891",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-3478-season-1",
+      "title": "Star Wars: Ewoks — Season 1",
+      "releaseDate": "1985-09-07",
+      "source": "https://www.themoviedb.org/tv/3478/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-3478-season-2",
+      "title": "Star Wars: Ewoks — Season 2",
+      "releaseDate": "1986-09-13",
+      "source": "https://www.themoviedb.org/tv/3478/season/2",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-1884",
+      "title": "Caravan of Courage: An Ewok Adventure",
+      "releaseDate": "1984-11-25",
+      "source": "https://www.themoviedb.org/movie/1884",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-10372",
+      "title": "Ewoks: The Battle for Endor",
+      "releaseDate": "1985-11-24",
+      "source": "https://www.themoviedb.org/movie/10372",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-1892",
+      "title": "Star Wars: Episode VI - Return of the Jedi",
+      "releaseDate": "1983-05-25",
+      "source": "https://www.themoviedb.org/movie/1892",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-82856-season-1",
+      "title": "The Mandalorian — Season 1",
+      "releaseDate": "2019-11-12",
+      "source": "https://www.themoviedb.org/tv/82856/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-82856-season-2",
+      "title": "The Mandalorian — Season 2",
+      "releaseDate": "2020-10-30",
+      "source": "https://www.themoviedb.org/tv/82856/season/2",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-115036-season-1",
+      "title": "The Book of Boba Fett — Season 1",
+      "releaseDate": "2021-12-29",
+      "source": "https://www.themoviedb.org/tv/115036/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-82856-season-3",
+      "title": "The Mandalorian — Season 3",
+      "releaseDate": "2023-03-01",
+      "source": "https://www.themoviedb.org/tv/82856/season/3",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-114461-season-1",
+      "title": "Ahsoka — Season 1",
+      "releaseDate": "2023-08-22",
+      "source": "https://www.themoviedb.org/tv/114461/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-202879-season-1",
+      "title": "Star Wars: Skeleton Crew — Season 1",
+      "releaseDate": "2024-12-02",
+      "source": "https://www.themoviedb.org/tv/202879/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-1228710",
+      "title": "Star Wars: The Mandalorian and Grogu",
+      "releaseDate": "2026-05-22",
+      "source": "https://www.themoviedb.org/movie/1228710",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-untitled-dave-filoni-star-wars-project",
+      "title": "Untitled Dave Filoni Star Wars Project",
+      "releaseDate": null,
+      "source": "universe/starwars.txt",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-79093-season-1",
+      "title": "Star Wars: Resistance — Season 1",
+      "releaseDate": "2018-10-07",
+      "source": "https://www.themoviedb.org/tv/79093/season/1",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-140607",
+      "title": "Star Wars: Episode VII - The Force Awakens",
+      "releaseDate": "2015-12-18",
+      "source": "https://www.themoviedb.org/movie/140607",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-181808",
+      "title": "Star Wars: Episode VIII - The Last Jedi",
+      "releaseDate": "2017-12-15",
+      "source": "https://www.themoviedb.org/movie/181808",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-tv-79093-season-2",
+      "title": "Star Wars: Resistance — Season 2",
+      "releaseDate": "2019-10-06",
+      "source": "https://www.themoviedb.org/tv/79093/season/2",
+      "dateBasis": "Earliest selected episode air date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-181812",
+      "title": "Star Wars: Episode IX - The Rise of Skywalker",
+      "releaseDate": "2019-12-20",
+      "source": "https://www.themoviedb.org/movie/181812",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-1417668",
+      "title": "Star Wars: Starfighter",
+      "releaseDate": "2027-05-28",
+      "source": "https://www.themoviedb.org/movie/1417668",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    },
+    {
+      "id": "star-wars-tmdb-movie-949966",
+      "title": "Star Wars: New Jedi Order",
+      "releaseDate": null,
+      "source": "https://www.themoviedb.org/movie/949966",
+      "dateBasis": "Earliest US public release; default TMDB date if US unavailable; Starfighter official US date"
+    }
+  ]
+}

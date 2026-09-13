@@ -1,6 +1,4 @@
-import 'package:chronowarp/data/marvel_data.dart';
-import 'package:chronowarp/data/lionking_data.dart';
-import 'package:chronowarp/data/pixar_data.dart';
+import '../data/marathon_catalog.dart';
 import 'package:chronowarp/models/media_item.dart';
 import 'package:flutter/material.dart';
 
@@ -25,14 +23,6 @@ class _RankedEntry {
     required this.score,
   });
 }
-
-/// All universes registered here — add new ones as you build them.
-final _allUniverses = <String, List<MediaItem>>{
-  'Marvel': mcuReleaseOrder,
-  // 'Star Wars': starWarsItems,
-  'Lion King': lionKingReleaseOrder,
-  'Pixar': pixarOrder,
-};
 
 class OverallRankingsPage extends StatefulWidget {
   const OverallRankingsPage({super.key});
@@ -69,8 +59,8 @@ class _OverallRankingsPageState extends State<OverallRankingsPage>
   List<_RankedEntry> _rankedEntries(String category) {
     final entries = <_RankedEntry>[];
 
-    for (final universe in _allUniverses.entries) {
-      for (final item in universe.value) {
+    for (final universe in availableUniverses) {
+      for (final item in universe.releaseItems) {
         if (item.categoryRating == null) continue;
         final cr = item.categoryRating!;
         double? score;
@@ -96,12 +86,17 @@ class _OverallRankingsPageState extends State<OverallRankingsPage>
         }
         if (score == null) continue;
         entries.add(
-          _RankedEntry(item: item, universe: universe.key, score: score),
+          _RankedEntry(item: item, universe: universe.title, score: score),
         );
       }
     }
 
-    entries.sort((a, b) => b.score.compareTo(a.score));
+    entries.sort((a, b) {
+      final score = b.score.compareTo(a.score);
+      if (score != 0) return score;
+      final title = a.item.title.compareTo(b.item.title);
+      return title != 0 ? title : a.universe.compareTo(b.universe);
+    });
     return entries;
   }
 
@@ -348,7 +343,9 @@ class _OverallRankingsPageState extends State<OverallRankingsPage>
                         ),
                       ),
                       const SizedBox(height: 2),
-                      Row(
+                      Wrap(
+                        spacing: 6,
+                        runSpacing: 4,
                         children: [
                           Container(
                             padding: const EdgeInsets.symmetric(
@@ -368,9 +365,8 @@ class _OverallRankingsPageState extends State<OverallRankingsPage>
                               ),
                             ),
                           ),
-                          const SizedBox(width: 6),
                           Text(
-                            '${entry.item.year}',
+                            entry.item.yearLabel,
                             style: const TextStyle(
                               fontSize: 12,
                               color: _textMuted,

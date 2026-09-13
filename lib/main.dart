@@ -1,3 +1,5 @@
+import 'widgets/tap_sound_feedback.dart';
+import 'services/rating_store.dart';
 import 'transitions/portal_transition.dart';
 import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ import 'pages/home_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: androidFirebaseOptions);
+  await RatingStore.initialize();
   runApp(const MyApp());
 }
 
@@ -25,6 +28,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: const Color(0xFFE86D1F),
         scaffoldBackgroundColor: const Color(0xFF1A2931),
+        appBarTheme: const AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle.light,
+        ),
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: {
             TargetPlatform.android: PredictiveBackPageTransitionsBuilder(
@@ -47,6 +53,10 @@ class MyApp extends StatelessWidget {
       ),
       builder: (context, child) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+          systemStatusBarContrastEnforced: false,
           systemNavigationBarColor: Colors.transparent,
           systemNavigationBarDividerColor: Colors.transparent,
           systemNavigationBarIconBrightness: Brightness.light,
@@ -54,7 +64,7 @@ class MyApp extends StatelessWidget {
         ),
         child: ColoredBox(
           color: const Color(0xFF1A2931),
-          child: child ?? const SizedBox.shrink(),
+          child: TapSoundFeedback(child: child ?? const SizedBox.shrink()),
         ),
       ),
       home: StreamBuilder<User?>(
@@ -66,6 +76,7 @@ class MyApp extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           }
+          RatingStore.activate(snapshot.data?.uid);
           return AuthPortalTransition(
             signedIn: snapshot.hasData,
             child: snapshot.hasData

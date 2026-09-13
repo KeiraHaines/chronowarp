@@ -16,12 +16,14 @@ class _UniverseOrderPageState extends State<UniverseOrderPage> {
   late final repository = MarathonRepository.current();
   late final choices = [
     universeMarathon(widget.config, ViewingOrder.release),
-    universeMarathon(widget.config, ViewingOrder.chronological),
+    if (widget.config.hasMultipleOrders)
+      universeMarathon(widget.config, ViewingOrder.chronological),
   ];
   late final streams = {for (final m in choices) m.id: repository.run(m.id)};
   @override
   Widget build(BuildContext context) {
     final c = widget.config;
+    if (!c.hasMultipleOrders) return UniverseWatchPage(config: c);
     return Scaffold(
       backgroundColor: c.bgPage,
       appBar: AppBar(

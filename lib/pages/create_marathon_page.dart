@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/marathon_colours.dart';
 import '../models/marathon.dart';
 import '../services/marathon_repository.dart';
 import 'custom_media_page.dart';
@@ -33,6 +34,7 @@ class _MarathonDraftPageState extends State<MarathonDraftPage> {
   late final _id = widget.initialMarathon?.id ?? _repository.newId();
   final _entries = <MarathonEntry>[];
   final _media = <String, CatalogMedia>{};
+  String _colourTheme = 'classic';
   bool _saving = false;
   bool _loadingLibrary = false;
   bool _addingEntries = false;
@@ -40,6 +42,10 @@ class _MarathonDraftPageState extends State<MarathonDraftPage> {
   final _setupForm = GlobalKey<FormState>();
   String? _error;
   bool get _editing => widget.initialMarathon != null;
+  bool get _canPersonalise =>
+      widget.initialMarathon == null ||
+      (widget.initialMarathon!.order == ViewingOrder.custom &&
+          widget.initialMarathon!.universeId == null);
   @override
   void initState() {
     super.initState();
@@ -48,7 +54,8 @@ class _MarathonDraftPageState extends State<MarathonDraftPage> {
       _title.text = initial.title;
       _entries.addAll(initial.entries);
       _media.addAll(initial.media);
-      _addingEntries = true;
+      _colourTheme = initial.colourTheme;
+      _addingEntries = !_canPersonalise;
     }
   }
 
@@ -213,7 +220,12 @@ class _MarathonDraftPageState extends State<MarathonDraftPage> {
     });
     final marathon = MarathonDefinition(
       id: _id,
-      title: _title.text.trim(),
+      title: _canPersonalise
+          ? _title.text.trim()
+          : widget.initialMarathon!.title,
+      colourTheme: _canPersonalise
+          ? _colourTheme
+          : widget.initialMarathon!.colourTheme,
       order: widget.initialMarathon?.order ?? ViewingOrder.custom,
       universeId: widget.initialMarathon?.universeId,
       entries: _entries,
@@ -268,7 +280,7 @@ class _MarathonDraftPageState extends State<MarathonDraftPage> {
         foregroundColor: Colors.white,
         title: Text(
           _editing
-              ? 'Edit order and entries'
+              ? 'Edit marathon'
               : _addingEntries
               ? 'Add entries'
               : 'Create marathon',
@@ -288,7 +300,7 @@ class _MarathonDraftPageState extends State<MarathonDraftPage> {
       body: IndexedStack(
         index: _addingEntries ? 1 : 0,
         children: [
-          _editing ? const SizedBox.shrink() : _buildSetup(),
+          _canPersonalise ? _buildSetup() : const SizedBox.shrink(),
           !_addingEntries
               ? const SizedBox.shrink()
               : Column(
@@ -309,9 +321,9 @@ class _MarathonDraftPageState extends State<MarathonDraftPage> {
                                   ),
                                 ),
                               ),
-                              if (!_editing)
+                              if (_canPersonalise)
                                 IconButton(
-                                  tooltip: 'Edit name and cover',
+                                  tooltip: 'Edit name, colours and cover',
                                   onPressed: _saving
                                       ? null
                                       : () => setState(
@@ -453,7 +465,7 @@ class _MarathonDraftPageState extends State<MarathonDraftPage> {
         ),
         const SizedBox(height: 8),
         const Text(
-          'Give it a name and choose a cover. Next, build your viewing order.',
+          'Choose a name, colours and cover, then arrange your viewing order.',
           style: TextStyle(color: Colors.white70),
         ),
         const SizedBox(height: 24),
@@ -474,12 +486,37 @@ class _MarathonDraftPageState extends State<MarathonDraftPage> {
         ),
         const SizedBox(height: 20),
         const Text(
+          'Colours',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final palette in MarathonColours.options)
+              ChoiceChip(
+                label: Text(palette.label),
+                avatar: CircleAvatar(
+                  backgroundColor: palette.accent,
+                  radius: 9,
+                ),
+                selected: _colourTheme == palette.id,
+                onSelected: _saving
+                    ? null
+                    : (_) => setState(() => _colourTheme = palette.id),
+              ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        const Text(
           'Cover image',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
         MarathonPhotoField(
           objectId: () => 'cover-$_id',
+          initialPhotoId: _editing ? 'cover-$_id' : null,
           label: 'Choose a photo from your phone',
           onChanged: (_) {},
           onReady: (ready) => setState(() => _photoReady = ready),
@@ -493,7 +530,7 @@ class _MarathonDraftPageState extends State<MarathonDraftPage> {
                   FocusScope.of(context).unfocus();
                   setState(() => _addingEntries = true);
                 },
-          child: const Text('Next: add entries'),
+          child: Text(_editing ? 'Next: review entries' : 'Next: add entries'),
         ),
       ],
     ),

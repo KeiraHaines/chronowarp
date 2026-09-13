@@ -1,5 +1,7 @@
 import '../services/marathon_photo_store.dart';
 import 'marathon_image.dart';
+import 'marathon_colours.dart';
+import '../transitions/portal_transition.dart';
 import 'package:flutter/material.dart';
 import '../models/marathon.dart';
 import '../services/marathon_repository.dart';
@@ -13,37 +15,47 @@ class CustomMarathonHomeCard extends StatefulWidget {
 }
 
 class _CustomMarathonHomeCardState extends State<CustomMarathonHomeCard> {
+  int _coverRevision = 0;
   late final _run = MarathonRepository.current().run(widget.marathon.id);
   @override
   Widget build(BuildContext context) {
     final m = widget.marathon;
+    final palette = MarathonColours.forId(m.colourTheme);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: InkWell(
         borderRadius: BorderRadius.circular(24),
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => MarathonRunPage(marathon: m)),
-        ),
+        onTap: () async {
+          await Navigator.push(
+            context,
+            PortalPageRoute(
+              builder: (_) => MarathonRunPage(marathon: m),
+              primary: palette.accent,
+              secondary: palette.secondary,
+            ),
+          );
+          if (mounted) setState(() => _coverRevision++);
+        },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(24),
           child: Stack(
             fit: StackFit.expand,
             children: [
-              const DecoratedBox(
+              DecoratedBox(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Color(0xFF517E86),
-                      Color(0xFF283A44),
-                      Color(0xFFD4622A),
+                      palette.secondary,
+                      palette.background,
+                      palette.accent,
                     ],
                   ),
                 ),
               ),
               MarathonImage(
+                key: ValueKey(_coverRevision),
                 source: MarathonPhotoStore.reference('cover-${m.id}'),
                 placeholder: const Center(
                   child: Icon(
@@ -126,7 +138,7 @@ class _CustomMarathonHomeCardState extends State<CustomMarathonHomeCard> {
                                   value: m.entries.isEmpty
                                       ? 0
                                       : done / m.entries.length,
-                                  color: const Color(0xFFD4622A),
+                                  color: palette.accent,
                                   backgroundColor: Colors.white24,
                                   minHeight: 5,
                                 ),

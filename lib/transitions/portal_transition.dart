@@ -1,5 +1,8 @@
 import 'dart:math' as math;
+import 'dart:async';
+import '../services/portal_sound.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 const portalDuration = Duration(milliseconds: 1000);
 
@@ -21,6 +24,25 @@ class PortalPageRoute<T> extends PageRouteBuilder<T> {
                child: child,
              ),
        );
+  @override
+  TickerFuture didPush() {
+    if (!(navigator?.context == null ||
+        MediaQuery.disableAnimationsOf(navigator!.context))) {
+      unawaited(PortalSound.play());
+    }
+    return super.didPush();
+  }
+
+  @override
+  bool didPop(T? result) {
+    final popped = super.didPop(result);
+    if (popped &&
+        navigator != null &&
+        !MediaQuery.disableAnimationsOf(navigator!.context)) {
+      unawaited(PortalSound.play(closing: true));
+    }
+    return popped;
+  }
 }
 
 /// Keeps the destination mounted throughout the reveal: no auth/page-state reset
@@ -185,6 +207,7 @@ class _AuthPortalTransitionState extends State<AuthPortalTransition>
         !MediaQuery.disableAnimationsOf(context)) {
       _previous = oldWidget.child;
       _controller.forward(from: 0);
+      unawaited(PortalSound.play());
     } else if (!widget.signedIn) {
       _previous = null;
       _controller.value = 1;

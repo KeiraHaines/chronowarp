@@ -111,7 +111,7 @@ class _RankingsPageState extends State<RankingsPage>
                 children: [
                   IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: Icon(Icons.arrow_back, color: widget.accentPrimary),
+                    icon: Icon(Icons.arrow_back, color: widget.textCard),
                     style: IconButton.styleFrom(
                       backgroundColor: widget.bgCard,
                       shape: RoundedRectangleBorder(
@@ -202,13 +202,15 @@ class _RankingsPageState extends State<RankingsPage>
                     fontWeight: FontWeight.w600,
                   ),
                   tabs: _categories
-                      .map((c) => Tab(
-                        height: 48,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(c),
+                      .map(
+                        (c) => Tab(
+                          height: 48,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(c),
+                          ),
                         ),
-                      ))
+                      )
                       .toList(),
                 ),
               ),
@@ -299,7 +301,11 @@ class _RankingsPageState extends State<RankingsPage>
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
-                        color: isTop3 ? Colors.black : widget.textMuted,
+                        color: isTop3
+                            ? Colors.black
+                            : (widget.bgChip.computeLuminance() > 0.179
+                                  ? Colors.black
+                                  : Colors.white),
                       ),
                     ),
                   ),
@@ -320,7 +326,7 @@ class _RankingsPageState extends State<RankingsPage>
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        '${item.year}',
+                        item.yearLabel,
                         style: TextStyle(
                           fontSize: 12,
                           color: widget.textCardMuted,
@@ -344,7 +350,9 @@ class _RankingsPageState extends State<RankingsPage>
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
-                      color: widget.accentSecondary,
+                      color: widget.accentSecondary.computeLuminance() > 0.179
+                          ? Colors.black
+                          : Colors.white,
                     ),
                   ),
                 ),
@@ -384,7 +392,7 @@ class _RankingsPageState extends State<RankingsPage>
                   entry.key,
                   style: TextStyle(
                     fontSize: 11,
-                    color: widget.textMuted,
+                    color: widget.textCard,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -411,7 +419,7 @@ class _RankingsPageState extends State<RankingsPage>
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     fontSize: 11,
-                    color: widget.textMuted,
+                    color: widget.textCard,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

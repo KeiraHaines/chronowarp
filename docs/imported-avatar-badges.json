@@ -1,0 +1,912 @@
+[
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_06 PM.png",
+    "target": "assets/avatars/wizarding/hogwarts.png",
+    "crop": [
+      80,
+      31,
+      613,
+      613
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_06 PM.png",
+    "target": "assets/avatars/wizarding/hedwig.png",
+    "crop": [
+      782,
+      18,
+      621,
+      621
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_06 PM.png",
+    "target": "assets/avatars/wizarding/deathly-hallows.png",
+    "crop": [
+      1497,
+      19,
+      603,
+      603
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_14 PM.png",
+    "target": "assets/avatars/wizarding/gryffindor.png",
+    "crop": [
+      23,
+      78,
+      500,
+      500
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_14 PM.png",
+    "target": "assets/avatars/wizarding/slytherin.png",
+    "crop": [
+      555,
+      74,
+      504,
+      504
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_14 PM.png",
+    "target": "assets/avatars/wizarding/ravenclaw.png",
+    "crop": [
+      1093,
+      71,
+      514,
+      514
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_14 PM.png",
+    "target": "assets/avatars/wizarding/hufflepuff.png",
+    "crop": [
+      1644,
+      87,
+      483,
+      483
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_18 PM.png",
+    "target": "assets/avatars/princess/cinderella.png",
+    "crop": [
+      51,
+      33,
+      422,
+      422
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_18 PM.png",
+    "target": "assets/avatars/princess/belle.png",
+    "crop": [
+      552,
+      34,
+      424,
+      424
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_18 PM.png",
+    "target": "assets/avatars/princess/ariel.png",
+    "crop": [
+      1047,
+      23,
+      447,
+      447
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_18 PM.png",
+    "target": "assets/avatars/princess/snow-white.png",
+    "crop": [
+      38,
+      501,
+      434,
+      434
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_18 PM.png",
+    "target": "assets/avatars/princess/rapunzel.png",
+    "crop": [
+      542,
+      492,
+      453,
+      453
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_18 PM.png",
+    "target": "assets/avatars/princess/jasmine.png",
+    "crop": [
+      1062,
+      500,
+      434,
+      434
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_35 PM.png",
+    "target": "assets/avatars/pixar/ball-badge.png",
+    "crop": [
+      72,
+      38,
+      408,
+      408
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_35 PM.png",
+    "target": "assets/avatars/pixar/rocket-badge.png",
+    "crop": [
+      545,
+      31,
+      432,
+      432
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_35 PM.png",
+    "target": "assets/avatars/pixar/mike-badge.png",
+    "crop": [
+      1036,
+      30,
+      432,
+      432
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_35 PM.png",
+    "target": "assets/avatars/pixar/nemo-badge.png",
+    "crop": [
+      59,
+      502,
+      424,
+      424
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_35 PM.png",
+    "target": "assets/avatars/pixar/plant-badge.png",
+    "crop": [
+      546,
+      493,
+      439,
+      439
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_35 PM.png",
+    "target": "assets/avatars/pixar/up-badge.png",
+    "crop": [
+      1030,
+      489,
+      453,
+      453
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_40 PM.png",
+    "target": "assets/avatars/marvel/iron-man-badge.png",
+    "crop": [
+      39,
+      34,
+      424,
+      424
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_40 PM.png",
+    "target": "assets/avatars/marvel/captain-america-badge.png",
+    "crop": [
+      546,
+      25,
+      437,
+      437
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_40 PM.png",
+    "target": "assets/avatars/marvel/thor-badge.png",
+    "crop": [
+      1054,
+      24,
+      443,
+      443
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_40 PM.png",
+    "target": "assets/avatars/marvel/hulk-badge.png",
+    "crop": [
+      37,
+      486,
+      445,
+      445
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_40 PM.png",
+    "target": "assets/avatars/marvel/black-widow-badge.png",
+    "crop": [
+      538,
+      489,
+      445,
+      445
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_40 PM.png",
+    "target": "assets/avatars/marvel/hawkeye-badge.png",
+    "crop": [
+      1034,
+      484,
+      453,
+      453
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_44 PM.png",
+    "target": "assets/avatars/starwars/jedi-badge.png",
+    "crop": [
+      63,
+      42,
+      424,
+      424
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_44 PM.png",
+    "target": "assets/avatars/starwars/empire-badge.png",
+    "crop": [
+      554,
+      26,
+      430,
+      430
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_44 PM.png",
+    "target": "assets/avatars/starwars/rebel-badge.png",
+    "crop": [
+      1052,
+      39,
+      418,
+      418
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_44 PM.png",
+    "target": "assets/avatars/starwars/mandalorian-badge.png",
+    "crop": [
+      45,
+      486,
+      445,
+      445
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_44 PM.png",
+    "target": "assets/avatars/starwars/bb8-badge.png",
+    "crop": [
+      555,
+      496,
+      422,
+      422
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_44 PM.png",
+    "target": "assets/avatars/starwars/clone-badge.png",
+    "crop": [
+      1034,
+      484,
+      447,
+      447
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_47 PM.png",
+    "target": "assets/avatars/lionking/simba-badge.png",
+    "crop": [
+      36,
+      19,
+      460,
+      460
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_47 PM.png",
+    "target": "assets/avatars/lionking/pride-rock-badge.png",
+    "crop": [
+      532,
+      19,
+      463,
+      463
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_47 PM.png",
+    "target": "assets/avatars/lionking/scar-badge.png",
+    "crop": [
+      1034,
+      19,
+      464,
+      464
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_47 PM.png",
+    "target": "assets/avatars/lionking/hakuna-matata-badge.png",
+    "crop": [
+      32,
+      491,
+      462,
+      462
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_47 PM.png",
+    "target": "assets/avatars/lionking/sun-badge.png",
+    "crop": [
+      533,
+      491,
+      457,
+      457
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_09_47 PM.png",
+    "target": "assets/avatars/lionking/elephants-badge.png",
+    "crop": [
+      1027,
+      491,
+      462,
+      462
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_58_52 PM.png",
+    "target": "assets/avatars/hunger/mockingjay.png",
+    "crop": [
+      58,
+      36,
+      425,
+      425
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_58_52 PM.png",
+    "target": "assets/avatars/hunger/capitol.png",
+    "crop": [
+      544,
+      22,
+      453,
+      453
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_58_52 PM.png",
+    "target": "assets/avatars/hunger/arrows.png",
+    "crop": [
+      1044,
+      34,
+      433,
+      433
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_58_52 PM.png",
+    "target": "assets/avatars/hunger/flames.png",
+    "crop": [
+      58,
+      496,
+      426,
+      426
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_58_52 PM.png",
+    "target": "assets/avatars/hunger/district-12.png",
+    "crop": [
+      551,
+      499,
+      427,
+      427
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 06_58_52 PM.png",
+    "target": "assets/avatars/hunger/trident.png",
+    "crop": [
+      1044,
+      495,
+      430,
+      430
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_26_45 PM.png",
+    "target": "assets/avatars/bond/gun-barrel.png",
+    "crop": [
+      39,
+      18,
+      463,
+      463
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_26_45 PM.png",
+    "target": "assets/avatars/bond/007.png",
+    "crop": [
+      538,
+      17,
+      462,
+      462
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_26_45 PM.png",
+    "target": "assets/avatars/bond/london.png",
+    "crop": [
+      1034,
+      17,
+      467,
+      467
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_26_45 PM.png",
+    "target": "assets/avatars/bond/tuxedo.png",
+    "crop": [
+      36,
+      488,
+      465,
+      465
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_26_45 PM.png",
+    "target": "assets/avatars/bond/alpine-mission.png",
+    "crop": [
+      525,
+      489,
+      465,
+      465
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_26_45 PM.png",
+    "target": "assets/avatars/bond/secret-service.png",
+    "crop": [
+      1037,
+      502,
+      439,
+      439
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_31_54 PM.png",
+    "target": "assets/avatars/indiana/fedora-and-whip.png",
+    "crop": [
+      62,
+      39,
+      425,
+      425
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_31_54 PM.png",
+    "target": "assets/avatars/indiana/jungle-temple.png",
+    "crop": [
+      543,
+      22,
+      455,
+      455
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_31_54 PM.png",
+    "target": "assets/avatars/indiana/golden-idol.png",
+    "crop": [
+      1031,
+      22,
+      459,
+      459
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_31_54 PM.png",
+    "target": "assets/avatars/indiana/compass.png",
+    "crop": [
+      49,
+      500,
+      439,
+      439
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_31_54 PM.png",
+    "target": "assets/avatars/indiana/canyon-explorer.png",
+    "crop": [
+      540,
+      499,
+      437,
+      437
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_31_54 PM.png",
+    "target": "assets/avatars/indiana/adventure-plane.png",
+    "crop": [
+      1025,
+      484,
+      465,
+      465
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_40_55 PM.png",
+    "target": "assets/avatars/indiana/explorer-hat.png",
+    "crop": [
+      46,
+      31,
+      438,
+      438
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_40_55 PM.png",
+    "target": "assets/avatars/indiana/canyon-silhouette.png",
+    "crop": [
+      542,
+      21,
+      459,
+      459
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_40_55 PM.png",
+    "target": "assets/avatars/indiana/temple-idol.png",
+    "crop": [
+      1042,
+      32,
+      442,
+      442
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_40_55 PM.png",
+    "target": "assets/avatars/indiana/map-and-compass.png",
+    "crop": [
+      40,
+      499,
+      445,
+      445
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_40_55 PM.png",
+    "target": "assets/avatars/indiana/whip-swing.png",
+    "crop": [
+      538,
+      501,
+      443,
+      443
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_40_55 PM.png",
+    "target": "assets/avatars/indiana/ancient-door.png",
+    "crop": [
+      1029,
+      488,
+      464,
+      464
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_43_58 PM.png",
+    "target": "assets/avatars/mission/vault-heist.png",
+    "crop": [
+      54,
+      40,
+      425,
+      425
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_43_58 PM.png",
+    "target": "assets/avatars/mission/target-map.png",
+    "crop": [
+      543,
+      33,
+      449,
+      449
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_43_58 PM.png",
+    "target": "assets/avatars/mission/secret-device.png",
+    "crop": [
+      1041,
+      36,
+      433,
+      433
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_43_58 PM.png",
+    "target": "assets/avatars/mission/voiceprint.png",
+    "crop": [
+      59,
+      497,
+      428,
+      428
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_43_58 PM.png",
+    "target": "assets/avatars/mission/laser-corridor.png",
+    "crop": [
+      531,
+      481,
+      461,
+      461
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_43_58 PM.png",
+    "target": "assets/avatars/mission/disguise.png",
+    "crop": [
+      1030,
+      482,
+      458,
+      458
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_47_44 PM.png",
+    "target": "assets/avatars/pirates/pirate-captain.png",
+    "crop": [
+      28,
+      22,
+      463,
+      463
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_47_44 PM.png",
+    "target": "assets/avatars/pirates/black-pearl.png",
+    "crop": [
+      524,
+      19,
+      470,
+      470
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_47_44 PM.png",
+    "target": "assets/avatars/pirates/treasure-cove.png",
+    "crop": [
+      1046,
+      30,
+      443,
+      443
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_47_44 PM.png",
+    "target": "assets/avatars/pirates/treasure-map.png",
+    "crop": [
+      41,
+      494,
+      452,
+      452
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_47_44 PM.png",
+    "target": "assets/avatars/pirates/moonlit-pirate.png",
+    "crop": [
+      536,
+      488,
+      459,
+      459
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_47_44 PM.png",
+    "target": "assets/avatars/pirates/pirate-flag.png",
+    "crop": [
+      1024,
+      493,
+      465,
+      465
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_50_09 PM.png",
+    "target": "assets/avatars/lotr/the-one-ring.png",
+    "crop": [
+      39,
+      29,
+      452,
+      452
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_50_09 PM.png",
+    "target": "assets/avatars/lotr/gandalf.png",
+    "crop": [
+      549,
+      28,
+      443,
+      443
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_50_09 PM.png",
+    "target": "assets/avatars/lotr/white-tree.png",
+    "crop": [
+      1037,
+      30,
+      445,
+      445
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_50_09 PM.png",
+    "target": "assets/avatars/lotr/the-fellowship.png",
+    "crop": [
+      27,
+      493,
+      463,
+      463
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_50_09 PM.png",
+    "target": "assets/avatars/lotr/barad-dur.png",
+    "crop": [
+      532,
+      489,
+      460,
+      460
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_50_09 PM.png",
+    "target": "assets/avatars/lotr/elven-archer.png",
+    "crop": [
+      1024,
+      493,
+      465,
+      465
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_52_50 PM.png",
+    "target": "assets/avatars/jurassic/t-rex.png",
+    "crop": [
+      42,
+      29,
+      447,
+      447
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_52_50 PM.png",
+    "target": "assets/avatars/jurassic/moonlit-dinosaur.png",
+    "crop": [
+      538,
+      18,
+      468,
+      468
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_52_50 PM.png",
+    "target": "assets/avatars/jurassic/park-gates.png",
+    "crop": [
+      1042,
+      29,
+      447,
+      447
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_52_50 PM.png",
+    "target": "assets/avatars/jurassic/dinosaur-eye.png",
+    "crop": [
+      37,
+      497,
+      450,
+      450
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_52_50 PM.png",
+    "target": "assets/avatars/jurassic/footprint.png",
+    "crop": [
+      524,
+      493,
+      466,
+      466
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 07_52_50 PM.png",
+    "target": "assets/avatars/jurassic/raptor.png",
+    "crop": [
+      1026,
+      487,
+      474,
+      474
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 08_06_57 PM.png",
+    "target": "assets/avatars/dragons/hiccup.png",
+    "crop": [
+      27,
+      22,
+      463,
+      463
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 08_06_57 PM.png",
+    "target": "assets/avatars/dragons/dragon-rider.png",
+    "crop": [
+      534,
+      13,
+      463,
+      463
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 08_06_57 PM.png",
+    "target": "assets/avatars/dragons/toothless-and-hiccup.png",
+    "crop": [
+      1041,
+      29,
+      450,
+      450
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 08_06_57 PM.png",
+    "target": "assets/avatars/dragons/dragon-flight.png",
+    "crop": [
+      39,
+      502,
+      443,
+      443
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 08_06_57 PM.png",
+    "target": "assets/avatars/dragons/viking-shield.png",
+    "crop": [
+      535,
+      487,
+      463,
+      463
+    ]
+  },
+  {
+    "source": "ChatGPT Image Sep 9, 2026, 08_06_57 PM.png",
+    "target": "assets/avatars/dragons/berk-warrior.png",
+    "crop": [
+      1038,
+      494,
+      463,
+      463
+    ]
+  }
+]

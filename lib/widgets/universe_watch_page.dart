@@ -1,5 +1,8 @@
+import '../widgets/tap_sound_feedback.dart';
+import '../services/rating_store.dart';
+import '../services/completion_sound.dart';
 import '../pages/create_marathon_page.dart';
-import 'marathon_image.dart';
+import 'media_poster.dart';
 import 'package:chronowarp/pages/ranking_page.dart';
 import 'media_rating_sheet.dart';
 import 'package:chronowarp/models/media_item.dart';
@@ -11,6 +14,8 @@ import 'package:flutter/material.dart';
 
 class UniverseConfig {
   final String title;
+  final Map<String, CatalogMedia>? catalog;
+  final List<MarathonEntry>? chronologicalEntries;
   final List<MediaItem> releaseItems;
   final List<MediaItem> chronologicalItems;
   final Color bgPage;
@@ -25,6 +30,8 @@ class UniverseConfig {
 
   const UniverseConfig({
     required this.title,
+    this.catalog,
+    this.chronologicalEntries,
     required this.releaseItems,
     required this.chronologicalItems,
     required this.bgPage,
@@ -39,6 +46,8 @@ class UniverseConfig {
   });
 
   String get key => title;
+  bool get hasMultipleOrders =>
+      chronologicalEntries?.isNotEmpty == true || chronologicalItems.isNotEmpty;
 }
 
 class UniverseWatchPage extends StatefulWidget {
@@ -91,7 +100,7 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
       for (final (index, entry) in marathon.entries.indexed)
         MediaItem(
           number: index + 1,
-          title: marathon.media[entry.mediaId]!.title,
+          title: entry.displayTitle(marathon.media[entry.mediaId]!),
           year:
               marathon.media[entry.mediaId]!.releaseYear ??
               int.tryParse(
@@ -198,6 +207,11 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
       await _repository
           .setCompleted(runId, entry, units, value)
           .timeout(const Duration(seconds: 20));
+      if (mounted &&
+          value &&
+          _marathon.media[entry.mediaId]?.kind == MediaKind.movie) {
+        unawaited(CompletionSound.play());
+      }
     } catch (_) {
       if (mounted)
         ScaffoldMessenger.of(context).showSnackBar(
@@ -239,7 +253,9 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
   @override
   void initState() {
     super.initState();
-    _isReleaseOrder = widget.initialOrder != ViewingOrder.chronological;
+    _isReleaseOrder =
+        !c.hasMultipleOrders ||
+        widget.initialOrder != ViewingOrder.chronological;
     _repository = MarathonRepository.current();
     for (final item in c.releaseItems) {
       _ratings[mediaIdFor(universeIdFor(c.title), item)] = item.categoryRating;
@@ -309,7 +325,7 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
                               style: TextStyle(color: c.textMuted),
                             ),
                           ),
-                        _buildOrderToggle(),
+                        if (c.hasMultipleOrders) _buildOrderToggle(),
                         if (!_listReady)
                           Text(
                             _listError ?? 'Loading your list…',
@@ -362,7 +378,9 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
               ),
               const Spacer(),
               IconButton(
-                tooltip: 'Edit this order',
+                tooltip: c.hasMultipleOrders
+                    ? 'Edit this order'
+                    : 'Edit watch list',
                 onPressed: _listReady && _pending.isEmpty ? _editList : null,
                 icon: Icon(Icons.edit_outlined, color: c.accentPrimary),
                 style: IconButton.styleFrom(
@@ -414,25 +432,36 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
   }
 
   Widget _buildStatRow() {
-    return Wrap(
-      alignment: WrapAlignment.center,
-      spacing: 8,
-      runSpacing: 8,
-      children: [
-        _statChip(Icons.movie_outlined, '$_movieCount movies'),
-        const SizedBox(width: 8),
-        _statChip(Icons.tv_outlined, '$_showCount shows'),
-        const SizedBox(width: 8),
-        _statChip(Icons.play_circle_outline, '$_totalEpisodes episodes'),
-        if (_gameCount > 0)
-          _statChip(Icons.sports_esports_outlined, '$_gameCount games'),
-      ],
+    return Center(
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _statChip(Icons.movie_outlined, '$_movieCount movies'),
+            const SizedBox(width: 6),
+            _statChip(Icons.tv_outlined, '$_showCount shows'),
+            const SizedBox(width: 6),
+            _statChip(Icons.play_circle_outline, '$_totalEpisodes episodes'),
+            if (_gameCount > 0) ...[
+              const SizedBox(width: 6),
+              _statChip(
+                Icons.sports_esports_outlined,
+                '$_gameCount ${_gameCount == 1 ? 'game' : 'games'}',
+              ),
+            ],
+          ],
+        ),
+      ),
     );
   }
 
   Widget _statChip(IconData icon, String label) {
+    final foreground = c.bgChip.computeLuminance() > 0.179
+        ? Colors.black
+        : Colors.white;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 6),
       decoration: BoxDecoration(
         color: c.bgChip,
         borderRadius: BorderRadius.circular(8),
@@ -440,14 +469,14 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 13, color: c.textMuted),
+          Icon(icon, size: 13, color: foreground),
           const SizedBox(width: 5),
           Text(
             label,
             style: TextStyle(
               fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: c.textMuted,
+              fontWeight: FontWeight.w700,
+              color: foreground,
             ),
           ),
         ],
@@ -651,76 +680,93 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
                   ),
                   const SizedBox(width: 10),
                   // Rate button
-                  GestureDetector(
-                    onTap: () async {
-                      await showMediaRatingSheet(
-                        context: context,
-                        title: item.title,
-                        initialRating: item.categoryRating,
-                        onSave: (rating) {
-                          setState(() {
-                            item.categoryRating = rating;
-                            _ratings[media.id] = rating;
-                            for (final original in c.releaseItems) {
-                              if (mediaIdFor(
-                                    universeIdFor(c.title),
-                                    original,
-                                  ) ==
-                                  media.id)
-                                original.categoryRating = rating;
-                            }
-                          });
-                        },
-                        bgCard: c.bgCard,
-                        bgChip: c.bgChip,
-                        accentPrimary: c.accentPrimary,
-                        accentSecondary: c.accentSecondary,
-                        textCard: c.textCard,
-                        textCardMuted: c.textCardMuted,
-                      );
-                    },
-                    child: item.rating != null
-                        ? Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: c.accentPrimary,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Text(
-                              '${item.rating!.toStringAsFixed(1)}/10',
-                              style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
+                  RateSound(
+                    child: GestureDetector(
+                      onTap: () async {
+                        await showMediaRatingSheet(
+                          context: context,
+                          title: item.title,
+                          initialRating: item.categoryRating,
+                          onSave: (rating) async {
+                            await RatingStore.save(media.id, rating);
+                            if (!mounted) return;
+                            setState(() {
+                              item.categoryRating = rating;
+                              _ratings[media.id] = rating;
+                              for (final original in c.releaseItems) {
+                                if (mediaIdFor(
+                                      universeIdFor(c.title),
+                                      original,
+                                    ) ==
+                                    media.id)
+                                  original.categoryRating = rating;
+                              }
+                            });
+                          },
+                          bgCard: c.bgCard,
+                          bgChip: c.bgChip,
+                          accentPrimary: c.accentPrimary,
+                          accentSecondary: c.accentSecondary,
+                          textCard: c.textCard,
+                          textCardMuted: c.textCardMuted,
+                        );
+                      },
+                      child: item.rating != null
+                          ? Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: c.accentPrimary,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                '${item.rating!.toStringAsFixed(1)}/10',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color:
+                                      c.accentPrimary.computeLuminance() > 0.179
+                                      ? Colors.black
+                                      : Colors.white,
+                                ),
+                              ),
+                            )
+                          : Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: c.bgChip,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                'Rate',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: c.bgChip.computeLuminance() > 0.179
+                                      ? Colors.black
+                                      : Colors.white,
+                                ),
                               ),
                             ),
-                          )
-                        : Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: c.bgChip,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Text(
-                              'Rate',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: c.textMuted,
-                              ),
-                            ),
-                          ),
+                    ),
                   ),
                 ],
               ),
             ),
 
+            if (entry.note != null)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(14, 0, 14, 12),
+                child: Text(
+                  entry.note!,
+                  style: TextStyle(color: c.textCardMuted, fontSize: 12),
+                ),
+              ),
             if (media.kind == MediaKind.season)
               Theme(
                 data: Theme.of(
@@ -757,43 +803,7 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
                 ),
               ),
 
-            // ── Poster (next up only) — standard 2:3 movie poster ratio ───
-            if (isNextUp)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: AspectRatio(
-                    aspectRatio: 2 / 3,
-                    child: item.posterPath != null
-                        ? MarathonImage(
-                            source: item.posterPath!,
-                            fit: BoxFit.cover,
-                          )
-                        : Container(
-                            color: c.bgChip,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.image_outlined,
-                                  size: 48,
-                                  color: c.textMuted,
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Poster coming soon',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: c.textMuted,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                  ),
-                ),
-              ),
+            if (isNextUp) MediaPoster(media: media),
 
             // ── Blurb (next up only) ──────────────────────────
             if (isNextUp && item.blurb != null)
@@ -822,8 +832,9 @@ class _UniverseWatchPageState extends State<UniverseWatchPage> {
         children: [
           TextSpan(text: '${media.dateLabel} · ${media.durationLabel}'),
           TextSpan(
-            text:
-                ' · Director: ${media.director?.trim().isNotEmpty == true ? media.director : 'Not added yet'}',
+            text: media.kind == MediaKind.game
+                ? ' · Developer: ${media.developer ?? 'Not added yet'}'
+                : ' · Director: ${media.director?.trim().isNotEmpty == true ? media.director : 'Not added yet'}',
           ),
           if (media.kind == MediaKind.season)
             TextSpan(text: ' · ${media.episodes.length} episodes'),

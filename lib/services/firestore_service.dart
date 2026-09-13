@@ -1,3 +1,6 @@
+import 'dart:convert';
+import '../models/marathon.dart';
+import '../models/party_marathon.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -143,6 +146,52 @@ class FirestoreService {
     return ref.id;
   }
 
+  Future<void> savePartyMarathon(
+    String partyId,
+    MarathonDefinition edited, {
+    required int expectedRevision,
+  }) async {
+    if (edited.entries.isEmpty || edited.entries.length > 100) {
+      throw StateError('A party needs 1–100 entries.');
+    }
+    if (utf8.encode(jsonEncode(edited.toJson())).length > 750000) {
+      throw StateError('This party list is too large.');
+    }
+    if (edited.media.values.any(
+      (media) => media.poster?.startsWith('firestore-photo:') ?? false,
+    )) {
+      throw StateError(
+        'Private photos cannot be shared with party members yet. Use catalogue artwork for this list.',
+      );
+    }
+    final ref = _db.collection('watchParties').doc(partyId);
+    await _db.runTransaction((transaction) async {
+      final snapshot = await transaction.get(ref);
+      final party = snapshot.data();
+      if (party == null || party['leaderUid'] != _uid) {
+        throw StateError('Only the party leader can edit this marathon.');
+      }
+      final revision = (party['marathonRevision'] as num?)?.toInt() ?? 0;
+      if (revision != expectedRevision) {
+        throw StateError(
+          'The list changed on another device. Reopen the editor to get the latest version.',
+        );
+      }
+      final original = PartyMarathon.definition(partyId, party);
+      final numbers = PartyMarathon.extendNumbers(
+        PartyMarathon.numbers(original, party),
+        edited,
+      );
+      transaction.update(ref, {
+        'title': edited.title,
+        'marathon': edited.toJson(),
+        'entryNumbers': numbers,
+        'marathonRevision': revision + 1,
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+    });
+  }
+
   Future<void> acceptPartyInvite(String partyId) async {
     final batch = _db.batch();
     batch.update(_db.collection('watchParties').doc(partyId), {
@@ -153,6 +202,52 @@ class FirestoreService {
       'pendingPartyInvites': FieldValue.arrayRemove([partyId]),
     });
     await batch.commit();
+  }
+
+  Future<int> inviteToParty(String partyId, List<String> userIds) async {
+    final ids = userIds.toSet().toList();
+    if (ids.isEmpty) return 0;
+    if (ids.length > 100)
+      throw StateError('Invite up to 100 friends at a time.');
+    final partyRef = _db.collection('watchParties').doc(partyId);
+    return _db.runTransaction<int>((transaction) async {
+      final party = (await transaction.get(partyRef)).data();
+      if (party == null || party['leaderUid'] != _uid) {
+        throw StateError('Only the party leader can invite friends.');
+      }
+      final me = (await transaction.get(
+        _db.collection('users').doc(_uid),
+      )).data();
+      final friends = List<String>.from(me?['friendIds'] ?? []);
+      final members = List<String>.from(party['memberIds'] ?? []);
+      final recipients = <DocumentReference<Map<String, dynamic>>>[];
+      for (final id in ids) {
+        if (id == _uid || members.contains(id)) continue;
+        if (!friends.contains(id))
+          throw StateError('You can only invite your friends.');
+        final ref = _db.collection('users').doc(id);
+        final user = (await transaction.get(ref)).data();
+        if (user == null)
+          throw StateError('A selected friend is no longer available.');
+        if (!List<String>.from(
+          user['pendingPartyInvites'] ?? [],
+        ).contains(partyId)) {
+          recipients.add(ref);
+        }
+      }
+      if (recipients.isEmpty) return 0;
+      transaction.update(partyRef, {
+        'invitedIds': FieldValue.arrayUnion(
+          recipients.map((r) => r.id).toList(),
+        ),
+      });
+      for (final ref in recipients) {
+        transaction.update(ref, {
+          'pendingPartyInvites': FieldValue.arrayUnion([partyId]),
+        });
+      }
+      return recipients.length;
+    });
   }
 
   Future<void> declinePartyInvite(String partyId) async {

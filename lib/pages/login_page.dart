@@ -101,6 +101,24 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  Widget _banner({required bool top}) => IgnorePointer(
+    child: ShaderMask(
+      blendMode: BlendMode.dstIn,
+      shaderCallback: (bounds) => LinearGradient(
+        begin: top ? Alignment.topCenter : Alignment.bottomCenter,
+        end: top ? Alignment.bottomCenter : Alignment.topCenter,
+        colors: const [Colors.white, Colors.white, Colors.transparent],
+        stops: const [0, 0.45, 1],
+      ).createShader(bounds),
+      child: Image.asset(
+        'assets/DarkBannerReBck.png',
+        width: double.infinity,
+        fit: BoxFit.fitWidth,
+        excludeFromSemantics: true,
+      ),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     final keyboardVisible = MediaQuery.viewInsetsOf(context).bottom > 0;
@@ -117,23 +135,12 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: Stack(
           children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: Image.asset(
-                'assets/DarkBannerReBck.png',
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            ),
+            Align(alignment: Alignment.topCenter, child: _banner(top: true)),
 
             if (!keyboardVisible)
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Image.asset(
-                  'assets/DarkBannerReBck.png',
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
+                child: _banner(top: false),
               ),
 
             Center(

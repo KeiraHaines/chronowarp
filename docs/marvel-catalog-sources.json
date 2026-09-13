@@ -1,0 +1,825 @@
+{
+  "retrieved": "2026-09-09",
+  "chronologicalSource": "universe/MarveL_chronological.txt",
+  "sourceSha256": "5bf6d2997d8ee314afc752d449fb5075aa6c9cf596014dc5e1093a690921dfa3",
+  "sourceSteps": 120,
+  "chronologicalSegments": 131,
+  "records": [
+    {
+      "id": "marvel-tmdb-tv-241388-season-1",
+      "title": "Eyes of Wakanda — Season 1",
+      "tmdbId": 241388,
+      "source": "https://www.themoviedb.org/tv/241388/season/1",
+      "releaseDate": "2025-08-01",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-1771",
+      "title": "Captain America: The First Avenger",
+      "tmdbId": 1771,
+      "source": "https://www.themoviedb.org/movie/1771",
+      "releaseDate": "2011-07-22",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-211387",
+      "title": "Marvel One-Shot: Agent Carter",
+      "tmdbId": 211387,
+      "source": "https://www.themoviedb.org/movie/211387",
+      "releaseDate": "2013-09-03",
+      "dateBasis": "TMDB earliest US public release (type 4)"
+    },
+    {
+      "id": "marvel-tmdb-tv-61550-season-1",
+      "title": "Agent Carter — Season 1",
+      "tmdbId": 61550,
+      "source": "https://www.themoviedb.org/tv/61550/season/1",
+      "releaseDate": "2015-01-06",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-61550-season-2",
+      "title": "Agent Carter — Season 2",
+      "tmdbId": 61550,
+      "source": "https://www.themoviedb.org/tv/61550/season/2",
+      "releaseDate": "2016-01-19",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-299537",
+      "title": "Captain Marvel",
+      "tmdbId": 299537,
+      "source": "https://www.themoviedb.org/movie/299537",
+      "releaseDate": "2019-03-08",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-1726",
+      "title": "Iron Man",
+      "tmdbId": 1726,
+      "source": "https://www.themoviedb.org/movie/1726",
+      "releaseDate": "2008-05-02",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-10138",
+      "title": "Iron Man 2",
+      "tmdbId": 10138,
+      "source": "https://www.themoviedb.org/movie/10138",
+      "releaseDate": "2010-05-07",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-76535",
+      "title": "Marvel One-Shot: A Funny Thing Happened on the Way to Thor's Hammer",
+      "tmdbId": 76535,
+      "source": "https://www.themoviedb.org/movie/76535",
+      "releaseDate": "2011-10-25",
+      "dateBasis": "TMDB earliest US public release (type 5)"
+    },
+    {
+      "id": "marvel-tmdb-movie-10195",
+      "title": "Thor",
+      "tmdbId": 10195,
+      "source": "https://www.themoviedb.org/movie/10195",
+      "releaseDate": "2011-05-06",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-1724",
+      "title": "The Incredible Hulk",
+      "tmdbId": 1724,
+      "source": "https://www.themoviedb.org/movie/1724",
+      "releaseDate": "2008-06-12",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-76122",
+      "title": "Marvel One-Shot: The Consultant",
+      "tmdbId": 76122,
+      "source": "https://www.themoviedb.org/movie/76122",
+      "releaseDate": "2011-09-13",
+      "dateBasis": "TMDB earliest US public release (type 5)"
+    },
+    {
+      "id": "marvel-tmdb-movie-24428",
+      "title": "Avengers Assemble",
+      "tmdbId": 24428,
+      "source": "https://www.themoviedb.org/movie/24428",
+      "releaseDate": "2012-05-04",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-119569",
+      "title": "Marvel One-Shot: Item 47",
+      "tmdbId": 119569,
+      "source": "https://www.themoviedb.org/movie/119569",
+      "releaseDate": "2012-09-25",
+      "dateBasis": "TMDB earliest US public release (type 5)"
+    },
+    {
+      "id": "marvel-tmdb-tv-1403-season-1",
+      "title": "Agents of S.H.I.E.L.D. — Season 1",
+      "tmdbId": 1403,
+      "source": "https://www.themoviedb.org/tv/1403/season/1",
+      "releaseDate": "2013-09-24",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-76338",
+      "title": "Thor: The Dark World",
+      "tmdbId": 76338,
+      "source": "https://www.themoviedb.org/movie/76338",
+      "releaseDate": "2013-11-08",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-68721",
+      "title": "Iron Man 3",
+      "tmdbId": 68721,
+      "source": "https://www.themoviedb.org/movie/68721",
+      "releaseDate": "2013-05-03",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-253980",
+      "title": "Marvel One-Shot: All Hail the King",
+      "tmdbId": 253980,
+      "source": "https://www.themoviedb.org/movie/253980",
+      "releaseDate": "2014-02-04",
+      "dateBasis": "TMDB earliest US public release (type 4)"
+    },
+    {
+      "id": "marvel-tmdb-movie-100402",
+      "title": "Captain America: The Winter Soldier",
+      "tmdbId": 100402,
+      "source": "https://www.themoviedb.org/movie/100402",
+      "releaseDate": "2014-04-04",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-1403-season-2",
+      "title": "Agents of S.H.I.E.L.D. — Season 2",
+      "tmdbId": 1403,
+      "source": "https://www.themoviedb.org/tv/1403/season/2",
+      "releaseDate": "2014-09-23",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-118340",
+      "title": "Guardians of the Galaxy",
+      "tmdbId": 118340,
+      "source": "https://www.themoviedb.org/movie/118340",
+      "releaseDate": "2014-08-01",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-232125-season-1",
+      "title": "I Am Groot — Season 1",
+      "tmdbId": 232125,
+      "source": "https://www.themoviedb.org/tv/232125/season/1",
+      "releaseDate": "2022-08-10",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-283995",
+      "title": "Guardians of the Galaxy: Vol. 2",
+      "tmdbId": 283995,
+      "source": "https://www.themoviedb.org/movie/283995",
+      "releaseDate": "2017-05-05",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-232125-season-2",
+      "title": "I Am Groot — Season 2",
+      "tmdbId": 232125,
+      "source": "https://www.themoviedb.org/tv/232125/season/2",
+      "releaseDate": "2023-09-06",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-61889-season-1",
+      "title": "Daredevil — Season 1",
+      "tmdbId": 61889,
+      "source": "https://www.themoviedb.org/tv/61889/season/1",
+      "releaseDate": "2015-04-10",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-38472-season-1",
+      "title": "Jessica Jones — Season 1",
+      "tmdbId": 38472,
+      "source": "https://www.themoviedb.org/tv/38472/season/1",
+      "releaseDate": "2015-11-20",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-99861",
+      "title": "Avengers: Age of Ultron",
+      "tmdbId": 99861,
+      "source": "https://www.themoviedb.org/movie/99861",
+      "releaseDate": "2015-05-01",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-69069-season-1",
+      "title": "WHIH News Front — Season 1",
+      "tmdbId": 69069,
+      "source": "https://www.themoviedb.org/tv/69069/season/1",
+      "releaseDate": "2015-07-02",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-102899",
+      "title": "Ant-Man",
+      "tmdbId": 102899,
+      "source": "https://www.themoviedb.org/movie/102899",
+      "releaseDate": "2015-07-17",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-1403-season-3",
+      "title": "Agents of S.H.I.E.L.D. — Season 3",
+      "tmdbId": 1403,
+      "source": "https://www.themoviedb.org/tv/1403/season/3",
+      "releaseDate": "2015-09-29",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-62126-season-1",
+      "title": "Luke Cage — Season 1",
+      "tmdbId": 62126,
+      "source": "https://www.themoviedb.org/tv/62126/season/1",
+      "releaseDate": "2016-09-30",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-61889-season-2",
+      "title": "Daredevil — Season 2",
+      "tmdbId": 61889,
+      "source": "https://www.themoviedb.org/tv/61889/season/2",
+      "releaseDate": "2016-03-18",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-62127-season-1",
+      "title": "Iron Fist — Season 1",
+      "tmdbId": 62127,
+      "source": "https://www.themoviedb.org/tv/62127/season/1",
+      "releaseDate": "2017-03-17",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-69069-season-2",
+      "title": "WHIH News Front — Season 2",
+      "tmdbId": 69069,
+      "source": "https://www.themoviedb.org/tv/69069/season/2",
+      "releaseDate": "2016-04-22",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-62285-season-1",
+      "title": "The Defenders — Season 1",
+      "tmdbId": 62285,
+      "source": "https://www.themoviedb.org/tv/62285/season/1",
+      "releaseDate": "2017-08-18",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-271110",
+      "title": "Captain America: Civil War",
+      "tmdbId": 271110,
+      "source": "https://www.themoviedb.org/movie/271110",
+      "releaseDate": "2016-05-06",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-497698",
+      "title": "Black Widow",
+      "tmdbId": 497698,
+      "source": "https://www.themoviedb.org/movie/497698",
+      "releaseDate": "2021-07-09",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-284054",
+      "title": "Black Panther",
+      "tmdbId": 284054,
+      "source": "https://www.themoviedb.org/movie/284054",
+      "releaseDate": "2018-02-16",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-68716-season-1",
+      "title": "Inhumans — Season 1",
+      "tmdbId": 68716,
+      "source": "https://www.themoviedb.org/tv/68716/season/1",
+      "releaseDate": "2017-09-29",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-315635",
+      "title": "Spider-Man: Homecoming",
+      "tmdbId": 315635,
+      "source": "https://www.themoviedb.org/movie/315635",
+      "releaseDate": "2017-07-07",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-67178-season-1",
+      "title": "The Punisher — Season 1",
+      "tmdbId": 67178,
+      "source": "https://www.themoviedb.org/tv/67178/season/1",
+      "releaseDate": "2017-11-17",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-284052",
+      "title": "Doctor Strange",
+      "tmdbId": 284052,
+      "source": "https://www.themoviedb.org/movie/284052",
+      "releaseDate": "2016-11-04",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-66190-season-1",
+      "title": "Cloak & Dagger — Season 1",
+      "tmdbId": 66190,
+      "source": "https://www.themoviedb.org/tv/66190/season/1",
+      "releaseDate": "2018-06-07",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-1403-season-4",
+      "title": "Agents of S.H.I.E.L.D. — Season 4",
+      "tmdbId": 1403,
+      "source": "https://www.themoviedb.org/tv/1403/season/4",
+      "releaseDate": "2016-09-20",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-69088-season-1",
+      "title": "Agents of S.H.I.E.L.D.: Slingshot — Season 1",
+      "tmdbId": 69088,
+      "source": "https://www.themoviedb.org/tv/69088/season/1",
+      "releaseDate": "2016-12-13",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-38472-season-2",
+      "title": "Jessica Jones — Season 2",
+      "tmdbId": 38472,
+      "source": "https://www.themoviedb.org/tv/38472/season/2",
+      "releaseDate": "2018-03-08",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-62126-season-2",
+      "title": "Luke Cage — Season 2",
+      "tmdbId": 62126,
+      "source": "https://www.themoviedb.org/tv/62126/season/2",
+      "releaseDate": "2018-06-22",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-62127-season-2",
+      "title": "Iron Fist — Season 2",
+      "tmdbId": 62127,
+      "source": "https://www.themoviedb.org/tv/62127/season/2",
+      "releaseDate": "2018-09-07",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-61889-season-3",
+      "title": "Daredevil — Season 3",
+      "tmdbId": 61889,
+      "source": "https://www.themoviedb.org/tv/61889/season/3",
+      "releaseDate": "2018-10-19",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-67466-season-1",
+      "title": "Runaways — Season 1",
+      "tmdbId": 67466,
+      "source": "https://www.themoviedb.org/tv/67466/season/1",
+      "releaseDate": "2017-11-21",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-66190-season-2",
+      "title": "Cloak & Dagger — Season 2",
+      "tmdbId": 66190,
+      "source": "https://www.themoviedb.org/tv/66190/season/2",
+      "releaseDate": "2019-04-04",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-67466-season-2",
+      "title": "Runaways — Season 2",
+      "tmdbId": 67466,
+      "source": "https://www.themoviedb.org/tv/67466/season/2",
+      "releaseDate": "2018-12-21",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-67466-season-3",
+      "title": "Runaways — Season 3",
+      "tmdbId": 67466,
+      "source": "https://www.themoviedb.org/tv/67466/season/3",
+      "releaseDate": "2019-12-13",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-1403-season-5",
+      "title": "Agents of S.H.I.E.L.D. — Season 5",
+      "tmdbId": 1403,
+      "source": "https://www.themoviedb.org/tv/1403/season/5",
+      "releaseDate": "2017-12-01",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-284053",
+      "title": "Thor: Ragnarok",
+      "tmdbId": 284053,
+      "source": "https://www.themoviedb.org/movie/284053",
+      "releaseDate": "2017-11-03",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-67178-season-2",
+      "title": "The Punisher — Season 2",
+      "tmdbId": 67178,
+      "source": "https://www.themoviedb.org/tv/67178/season/2",
+      "releaseDate": "2019-01-18",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-38472-season-3",
+      "title": "Jessica Jones — Season 3",
+      "tmdbId": 38472,
+      "source": "https://www.themoviedb.org/tv/38472/season/3",
+      "releaseDate": "2019-06-14",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-363088",
+      "title": "Ant-Man and the Wasp",
+      "tmdbId": 363088,
+      "source": "https://www.themoviedb.org/movie/363088",
+      "releaseDate": "2018-07-06",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-299536",
+      "title": "Avengers: Infinity War",
+      "tmdbId": 299536,
+      "source": "https://www.themoviedb.org/movie/299536",
+      "releaseDate": "2018-04-27",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-1403-season-6",
+      "title": "Agents of S.H.I.E.L.D. — Season 6",
+      "tmdbId": 1403,
+      "source": "https://www.themoviedb.org/tv/1403/season/6",
+      "releaseDate": "2019-05-10",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-1403-season-7",
+      "title": "Agents of S.H.I.E.L.D. — Season 7",
+      "tmdbId": 1403,
+      "source": "https://www.themoviedb.org/tv/1403/season/7",
+      "releaseDate": "2020-05-27",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-88987-season-1",
+      "title": "Helstrom — Season 1",
+      "tmdbId": 88987,
+      "source": "https://www.themoviedb.org/tv/88987/season/1",
+      "releaseDate": "2020-10-16",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-299534",
+      "title": "Avengers: Endgame",
+      "tmdbId": 299534,
+      "source": "https://www.themoviedb.org/movie/299534",
+      "releaseDate": "2019-04-26",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-84958-season-1",
+      "title": "Loki — Season 1",
+      "tmdbId": 84958,
+      "source": "https://www.themoviedb.org/tv/84958/season/1",
+      "releaseDate": "2021-06-09",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-91363-season-1",
+      "title": "What If...? — Season 1",
+      "tmdbId": 91363,
+      "source": "https://www.themoviedb.org/tv/91363/season/1",
+      "releaseDate": "2021-08-11",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-138505-season-1",
+      "title": "Marvel Zombies — Season 1",
+      "tmdbId": 138505,
+      "source": "https://www.themoviedb.org/tv/138505/season/1",
+      "releaseDate": "2025-09-24",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-91363-season-2",
+      "title": "What If...? — Season 2",
+      "tmdbId": 91363,
+      "source": "https://www.themoviedb.org/tv/91363/season/2",
+      "releaseDate": "2023-12-22",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-85271-season-1",
+      "title": "WandaVision — Season 1",
+      "tmdbId": 85271,
+      "source": "https://www.themoviedb.org/tv/85271/season/1",
+      "releaseDate": "2021-01-15",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-566525",
+      "title": "Shang-Chi and the Legend of the Ten Rings",
+      "tmdbId": 566525,
+      "source": "https://www.themoviedb.org/movie/566525",
+      "releaseDate": "2021-09-03",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-88396-season-1",
+      "title": "The Falcon and the Winter Soldier — Season 1",
+      "tmdbId": 88396,
+      "source": "https://www.themoviedb.org/tv/88396/season/1",
+      "releaseDate": "2021-03-19",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-758025",
+      "title": "Peter's To-Do List",
+      "tmdbId": 758025,
+      "source": "https://www.themoviedb.org/movie/758025",
+      "releaseDate": "2019-09-17",
+      "dateBasis": "TMDB earliest US public release (type 4)"
+    },
+    {
+      "id": "marvel-tmdb-movie-429617",
+      "title": "Spider-Man: Far from Home",
+      "tmdbId": 429617,
+      "source": "https://www.themoviedb.org/movie/429617",
+      "releaseDate": "2019-07-02",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-524434",
+      "title": "Eternals",
+      "tmdbId": 524434,
+      "source": "https://www.themoviedb.org/movie/524434",
+      "releaseDate": "2021-11-05",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-634649",
+      "title": "Spider-Man: No Way Home",
+      "tmdbId": 634649,
+      "source": "https://www.themoviedb.org/movie/634649",
+      "releaseDate": "2021-12-17",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-453395",
+      "title": "Doctor Strange in the Multiverse of Madness",
+      "tmdbId": 453395,
+      "source": "https://www.themoviedb.org/movie/453395",
+      "releaseDate": "2022-05-06",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-88329-season-1",
+      "title": "Hawkeye — Season 1",
+      "tmdbId": 88329,
+      "source": "https://www.themoviedb.org/tv/88329/season/1",
+      "releaseDate": "2021-11-24",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-92783-season-1",
+      "title": "She-Hulk: Attorney at Law — Season 1",
+      "tmdbId": 92783,
+      "source": "https://www.themoviedb.org/tv/92783/season/1",
+      "releaseDate": "2022-08-18",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-92749-season-1",
+      "title": "Moon Knight — Season 1",
+      "tmdbId": 92749,
+      "source": "https://www.themoviedb.org/tv/92749/season/1",
+      "releaseDate": "2022-03-30",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-505642",
+      "title": "Black Panther: Wakanda Forever",
+      "tmdbId": 505642,
+      "source": "https://www.themoviedb.org/movie/505642",
+      "releaseDate": "2022-11-11",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-122226-season-1",
+      "title": "Echo — Season 1",
+      "tmdbId": 122226,
+      "source": "https://www.themoviedb.org/tv/122226/season/1",
+      "releaseDate": "2024-01-09",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-92782-season-1",
+      "title": "Ms. Marvel — Season 1",
+      "tmdbId": 92782,
+      "source": "https://www.themoviedb.org/tv/92782/season/1",
+      "releaseDate": "2022-06-08",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-114471-season-1",
+      "title": "Ironheart — Season 1",
+      "tmdbId": 114471,
+      "source": "https://www.themoviedb.org/tv/114471/season/1",
+      "releaseDate": "2025-06-24",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-616037",
+      "title": "Thor: Love and Thunder",
+      "tmdbId": 616037,
+      "source": "https://www.themoviedb.org/movie/616037",
+      "releaseDate": "2022-07-07",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-894205",
+      "title": "Werewolf by Night",
+      "tmdbId": 894205,
+      "source": "https://www.themoviedb.org/movie/894205",
+      "releaseDate": "2022-10-07",
+      "dateBasis": "TMDB earliest US public release (type 4)"
+    },
+    {
+      "id": "marvel-tmdb-movie-774752",
+      "title": "The Guardians of the Galaxy Holiday Special",
+      "tmdbId": 774752,
+      "source": "https://www.themoviedb.org/movie/774752",
+      "releaseDate": "2022-11-25",
+      "dateBasis": "TMDB earliest US public release (type 4)"
+    },
+    {
+      "id": "marvel-tmdb-movie-640146",
+      "title": "Ant-Man and the Wasp: Quantumania",
+      "tmdbId": 640146,
+      "source": "https://www.themoviedb.org/movie/640146",
+      "releaseDate": "2023-02-17",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-447365",
+      "title": "Guardians of the Galaxy Vol. 3",
+      "tmdbId": 447365,
+      "source": "https://www.themoviedb.org/movie/447365",
+      "releaseDate": "2023-05-05",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-114472-season-1",
+      "title": "Secret Invasion — Season 1",
+      "tmdbId": 114472,
+      "source": "https://www.themoviedb.org/tv/114472/season/1",
+      "releaseDate": "2023-06-21",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-609681",
+      "title": "The Marvels",
+      "tmdbId": 609681,
+      "source": "https://www.themoviedb.org/movie/609681",
+      "releaseDate": "2023-11-10",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-84958-season-2",
+      "title": "Loki — Season 2",
+      "tmdbId": 84958,
+      "source": "https://www.themoviedb.org/tv/84958/season/2",
+      "releaseDate": "2023-10-05",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-533535",
+      "title": "Deadpool & Wolverine",
+      "tmdbId": 533535,
+      "source": "https://www.themoviedb.org/movie/533535",
+      "releaseDate": "2024-07-26",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-138501-season-1",
+      "title": "Agatha All Along — Season 1",
+      "tmdbId": 138501,
+      "source": "https://www.themoviedb.org/tv/138501/season/1",
+      "releaseDate": "2024-09-18",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-91363-season-3",
+      "title": "What If...? — Season 3",
+      "tmdbId": 91363,
+      "source": "https://www.themoviedb.org/tv/91363/season/3",
+      "releaseDate": "2024-12-22",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-tv-202555-season-1",
+      "title": "Daredevil: Born Again — Season 1",
+      "tmdbId": 202555,
+      "source": "https://www.themoviedb.org/tv/202555/season/1",
+      "releaseDate": "2025-03-04",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-822119",
+      "title": "Captain America: Brave New World",
+      "tmdbId": 822119,
+      "source": "https://www.themoviedb.org/movie/822119",
+      "releaseDate": "2025-02-14",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-198178-season-1",
+      "title": "Wonder Man — Season 1",
+      "tmdbId": 198178,
+      "source": "https://www.themoviedb.org/tv/198178/season/1",
+      "releaseDate": "2026-01-26",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-986056",
+      "title": "Thunderbolts*",
+      "tmdbId": 986056,
+      "source": "https://www.themoviedb.org/movie/986056",
+      "releaseDate": "2025-05-02",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-tv-202555-season-2",
+      "title": "Daredevil: Born Again — Season 2",
+      "tmdbId": 202555,
+      "source": "https://www.themoviedb.org/tv/202555/season/2",
+      "releaseDate": "2026-03-24",
+      "dateBasis": "TMDB season first-air date"
+    },
+    {
+      "id": "marvel-tmdb-movie-1439930",
+      "title": "The Punisher: One Last Kill",
+      "tmdbId": 1439930,
+      "source": "https://www.themoviedb.org/movie/1439930",
+      "releaseDate": "2026-05-12",
+      "dateBasis": "TMDB earliest US public release (type 4)"
+    },
+    {
+      "id": "marvel-tmdb-movie-969681",
+      "title": "Spider-Man: Brand New Day",
+      "tmdbId": 969681,
+      "source": "https://www.themoviedb.org/movie/969681",
+      "releaseDate": "2026-07-31",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-617126",
+      "title": "The Fantastic Four: First Steps",
+      "tmdbId": 617126,
+      "source": "https://www.themoviedb.org/movie/617126",
+      "releaseDate": "2025-07-25",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    },
+    {
+      "id": "marvel-tmdb-movie-1003596",
+      "title": "Avengers: Doomsday",
+      "tmdbId": 1003596,
+      "source": "https://www.themoviedb.org/movie/1003596",
+      "releaseDate": "2026-12-18",
+      "dateBasis": "TMDB earliest US public release (type 3)"
+    }
+  ]
+}

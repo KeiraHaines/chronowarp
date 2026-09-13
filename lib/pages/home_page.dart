@@ -1,4 +1,8 @@
+import 'universe_search.dart';
+import 'marathon_run_page.dart';
+import '../widgets/marathon_colours.dart';
 import '../transitions/portal_transition.dart';
+import '../widgets/universe_watch_page.dart';
 import '../widgets/custom_marathon_home_card.dart';
 import 'package:chronowarp/data/marathon_catalog.dart';
 import 'package:chronowarp/data/universe_configs.dart';
@@ -66,6 +70,156 @@ class _HomePageState extends State<HomePage> {
 
   late final List<HomeUniverseEntry> _entries = [
     HomeUniverseEntry(
+      key: 'The Lord of the Rings',
+      backgroundImage: 'assets/cards/lord-of-the-rings.png',
+      items: lordOfTheRingsConfig.releaseItems,
+      onTap: () => Navigator.push(
+        context,
+        PortalPageRoute(
+          builder: (_) => UniverseWatchPage(config: lordOfTheRingsConfig),
+          primary: lordOfTheRingsConfig.accentPrimary,
+          secondary: lordOfTheRingsConfig.accentSecondary,
+        ),
+      ),
+    ),
+
+    HomeUniverseEntry(
+      key: 'Pirates of the Caribbean',
+      backgroundImage: 'assets/cards/pirates.png',
+      items: piratesConfig.releaseItems,
+      onTap: () => Navigator.push(
+        context,
+        PortalPageRoute(
+          builder: (_) => UniverseWatchPage(config: piratesConfig),
+          primary: piratesConfig.accentPrimary,
+          secondary: piratesConfig.accentSecondary,
+        ),
+      ),
+    ),
+
+    HomeUniverseEntry(
+      key: 'Mission: Impossible',
+      backgroundImage: 'assets/cards/mission-impossible.png',
+      items: missionImpossibleConfig.releaseItems,
+      onTap: () => Navigator.push(
+        context,
+        PortalPageRoute(
+          builder: (_) => UniverseWatchPage(config: missionImpossibleConfig),
+          primary: missionImpossibleConfig.accentPrimary,
+          secondary: missionImpossibleConfig.accentSecondary,
+        ),
+      ),
+    ),
+
+    HomeUniverseEntry(
+      key: 'Jurassic World',
+      backgroundImage: 'assets/cards/jurassic-world.png',
+      items: jurassicConfig.releaseItems,
+      onTap: () => Navigator.push(
+        context,
+        PortalPageRoute(
+          builder: (_) => UniverseWatchPage(config: jurassicConfig),
+          primary: jurassicConfig.accentPrimary,
+          secondary: jurassicConfig.accentSecondary,
+        ),
+      ),
+    ),
+
+    HomeUniverseEntry(
+      key: 'Indiana Jones',
+      backgroundImage: 'assets/cards/indiana-jones.png',
+      items: indianaJonesConfig.releaseItems,
+      onTap: () => Navigator.push(
+        context,
+        PortalPageRoute(
+          builder: (_) => UniverseWatchPage(config: indianaJonesConfig),
+          primary: indianaJonesConfig.accentPrimary,
+          secondary: indianaJonesConfig.accentSecondary,
+        ),
+      ),
+    ),
+
+    HomeUniverseEntry(
+      key: 'How to Train Your Dragon',
+      backgroundImage: '',
+      items: dragonsConfig.releaseItems,
+      onTap: () => Navigator.push(
+        context,
+        PortalPageRoute(
+          builder: (_) => UniverseWatchPage(config: dragonsConfig),
+          primary: dragonsConfig.accentPrimary,
+          secondary: dragonsConfig.accentSecondary,
+        ),
+      ),
+    ),
+
+    HomeUniverseEntry(
+      key: 'High School Musical',
+      backgroundImage: 'assets/cards/high-school-musical.png',
+      items: highSchoolMusicalConfig.releaseItems,
+      onTap: () => Navigator.push(
+        context,
+        PortalPageRoute(
+          builder: (_) => UniverseWatchPage(config: highSchoolMusicalConfig),
+          primary: highSchoolMusicalConfig.accentPrimary,
+          secondary: highSchoolMusicalConfig.accentSecondary,
+        ),
+      ),
+    ),
+
+    HomeUniverseEntry(
+      key: 'X-Men',
+      backgroundImage: 'assets/cards/xmen.png',
+      items: xmenConfig.releaseItems,
+      onTap: () => Navigator.push(
+        context,
+        PortalPageRoute(
+          builder: (_) => UniverseWatchPage(config: xmenConfig),
+          primary: xmenConfig.accentPrimary,
+          secondary: xmenConfig.accentSecondary,
+        ),
+      ),
+    ),
+    HomeUniverseEntry(
+      key: 'James Bond',
+      backgroundImage: 'assets/cards/james-bond.png',
+      items: jamesBondConfig.releaseItems,
+      onTap: () => Navigator.push(
+        context,
+        PortalPageRoute(
+          builder: (_) => UniverseWatchPage(config: jamesBondConfig),
+          primary: jamesBondConfig.accentPrimary,
+          secondary: jamesBondConfig.accentSecondary,
+        ),
+      ),
+    ),
+    HomeUniverseEntry(
+      key: 'The Hunger Games',
+      backgroundImage: '',
+      items: hungerGamesConfig.releaseItems,
+      onTap: () => Navigator.push(
+        context,
+        PortalPageRoute(
+          builder: (_) => UniverseWatchPage(config: hungerGamesConfig),
+          primary: hungerGamesConfig.accentPrimary,
+          secondary: hungerGamesConfig.accentSecondary,
+        ),
+      ),
+    ),
+    HomeUniverseEntry(
+      key: 'Disney Princess',
+      backgroundImage: 'assets/cards/princess.png',
+      items: princessConfig.releaseItems,
+      onTap: () => Navigator.push(
+        context,
+        PortalPageRoute(
+          builder: (_) => UniverseWatchPage(config: princessConfig),
+          primary: princessConfig.accentPrimary,
+          secondary: princessConfig.accentSecondary,
+        ),
+      ),
+    ),
+    HomeUniverseEntry(
       key: 'Marvel Cinematic Universe',
       backgroundImage: "assets/cards/marvel.png",
       items: mcuReleaseOrder,
@@ -81,7 +235,7 @@ class _HomePageState extends State<HomePage> {
     HomeUniverseEntry(
       key: 'Star Wars Universe',
       backgroundImage: "assets/cards/starwars.png",
-      items: const [],
+      items: starWarsConfig.releaseItems,
       onTap: () => Navigator.push(
         context,
         PortalPageRoute(
@@ -114,6 +268,19 @@ class _HomePageState extends State<HomePage> {
           builder: (context) => const PixarPage(),
           primary: pixarConfig.accentPrimary,
           secondary: pixarConfig.accentSecondary,
+        ),
+      ),
+    ),
+    HomeUniverseEntry(
+      key: 'Wizarding World',
+      backgroundImage: 'assets/cards/wizarding-world.png',
+      items: wizardingWorldConfig.releaseItems,
+      onTap: () => Navigator.push(
+        context,
+        PortalPageRoute(
+          builder: (_) => UniverseWatchPage(config: wizardingWorldConfig),
+          primary: wizardingWorldConfig.accentPrimary,
+          secondary: wizardingWorldConfig.accentSecondary,
         ),
       ),
     ),
@@ -209,6 +376,36 @@ class _HomePageState extends State<HomePage> {
             Column(
               children: [
                 _buildHeader(screenWidth, dpr),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 4, 24, 0),
+                  child: Material(
+                    color: const Color(0xFF283A44),
+                    borderRadius: BorderRadius.circular(14),
+                    child: InkWell(
+                      onTap: () => _searchUniverses(saved),
+                      borderRadius: BorderRadius.circular(14),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.search, color: Colors.white70),
+                            SizedBox(width: 10),
+                            Text(
+                              'Search universes or marathons',
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 12),
 
                 // Card carousel
@@ -275,6 +472,49 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Future<void> _searchUniverses(List<MarathonDefinition> saved) async {
+    final selected = await showSearch<String>(
+      context: context,
+      delegate: UniverseSearch([
+        for (final marathon in saved)
+          UniverseSearchEntry(
+            id: 'custom:${marathon.id}',
+            title: marathon.title,
+            isCustom: true,
+            titles: marathon.entries
+                .map((entry) => marathon.media[entry.mediaId]!.title)
+                .toList(),
+          ),
+        for (final entry in _entries)
+          UniverseSearchEntry(
+            title: entry.key,
+            titles: entry.items.map((item) => item.title).toList(),
+          ),
+      ]),
+    );
+    if (!mounted || selected == null || selected.isEmpty) return;
+    final customIndex = saved.indexWhere((m) => 'custom:${m.id}' == selected);
+    if (customIndex >= 0) {
+      if (_pageController.hasClients)
+        _pageController.jumpToPage(_entries.length + customIndex);
+      await Navigator.push(
+        context,
+        PortalPageRoute(
+          primary: MarathonColours.forId(saved[customIndex].colourTheme).accent,
+          secondary: MarathonColours.forId(
+            saved[customIndex].colourTheme,
+          ).secondary,
+          builder: (_) => MarathonRunPage(marathon: saved[customIndex]),
+        ),
+      );
+      return;
+    }
+    final index = _entries.indexWhere((entry) => entry.key == selected);
+    if (index < 0) return;
+    if (_pageController.hasClients) _pageController.jumpToPage(index);
+    _entries[index].onTap();
+  }
+
   // ── Header: profile icon | logo | (empty space symmetry) ───────────────
   Widget _buildHeader(double screenWidth, double dpr) {
     return Padding(
@@ -282,7 +522,7 @@ class _HomePageState extends State<HomePage> {
       child: Image.asset(
         "assets/LogoLightNoBck.png",
         fit: BoxFit.contain,
-        height: 200,
+        height: 160,
         cacheWidth: (screenWidth * 0.65 * dpr).round(),
       ),
     );
@@ -551,11 +791,47 @@ class _HomePageState extends State<HomePage> {
             children: [
               // Card art
               Positioned.fill(
-                child: Image.asset(
-                  entry.backgroundImage,
-                  fit: BoxFit.cover,
-                  cacheWidth: (cardWidth * dpr).round(),
-                ),
+                child: entry.backgroundImage.isEmpty
+                    ? Container(
+                        color:
+                            (universeConfigFor(entry.key) ??
+                                    wizardingWorldConfig)
+                                .bgPage,
+                        alignment: const Alignment(0, -0.45),
+                        padding: const EdgeInsets.all(24),
+                        child: Text(
+                          entry.key,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color:
+                                (universeConfigFor(entry.key) ??
+                                        wizardingWorldConfig)
+                                    .accentPrimary,
+                            fontSize: 36,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
+                    : Image.asset(
+                        entry.backgroundImage,
+                        fit: BoxFit.cover,
+                        alignment:
+                            const [
+                              'Disney Princess',
+                              'High School Musical',
+                              'X-Men',
+                              'James Bond',
+                              'Mission: Impossible',
+                              'The Lord of the Rings',
+                              'Jurassic World',
+                              'Indiana Jones',
+                              'Pirates of the Caribbean',
+                              'Wizarding World',
+                            ].contains(entry.key)
+                            ? Alignment.topCenter
+                            : Alignment.center,
+                        cacheWidth: (cardWidth * dpr).round(),
+                      ),
               ),
 
               // Bottom gradient + stats
@@ -665,31 +941,36 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 12),
 
                       // Stat row
-                      Wrap(
-                        alignment: WrapAlignment.center,
-                        runSpacing: 8,
-                        children: [
-                          _statItem(
-                            Icons.movie_outlined,
-                            '$movieCount',
-                            'MOVIES',
+                      Center(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              _statItem(
+                                Icons.movie_outlined,
+                                '$movieCount',
+                                'MOVIES',
+                              ),
+                              if (gameCount > 0) ...[
+                                const SizedBox(width: 20),
+                                _statItem(
+                                  Icons.sports_esports_outlined,
+                                  '$gameCount',
+                                  'GAMES',
+                                ),
+                              ],
+                              if (episodeCount > 0) ...[
+                                const SizedBox(width: 20),
+                                _statItem(
+                                  Icons.play_circle_outline,
+                                  '$episodeCount',
+                                  'EPISODES',
+                                ),
+                              ],
+                            ],
                           ),
-                          const SizedBox(width: 20),
-                          if (gameCount > 0) ...[
-                            _statItem(
-                              Icons.sports_esports_outlined,
-                              '$gameCount',
-                              'GAMES',
-                            ),
-                            const SizedBox(width: 12),
-                          ],
-                          if (episodeCount > 0)
-                            _statItem(
-                              Icons.play_circle_outline,
-                              '$episodeCount',
-                              'EPISODES',
-                            ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
@@ -704,6 +985,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _statItem(IconData icon, String value, String label) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Icon(icon, size: 16, color: Colors.white70),
         const SizedBox(width: 6),

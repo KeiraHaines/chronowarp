@@ -1,9 +1,10 @@
+import 'dart:async';
 import 'package:chronowarp/models/media_item.dart';
 import 'package:flutter/material.dart';
 
 class RatingPage extends StatefulWidget {
   final MediaItem item;
-  final void Function(CategoryRating rating) onRated;
+  final FutureOr<void> Function(CategoryRating rating) onRated;
   final Color bgPage;
   final Color bgCard;
   final Color bgChip;
@@ -35,6 +36,7 @@ class RatingPage extends StatefulWidget {
 
 class _RatingPageState extends State<RatingPage> {
   late Map<String, double?> _ratings;
+  bool _saving = false;
 
   double? get _average {
     final filled = _ratings.values.whereType<double>().toList();
@@ -113,7 +115,7 @@ class _RatingPageState extends State<RatingPage> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '${widget.item.year}',
+                    widget.item.yearLabel,
                     style: TextStyle(fontSize: 13, color: widget.textMuted),
                   ),
                   const SizedBox(height: 32),
@@ -167,18 +169,34 @@ class _RatingPageState extends State<RatingPage> {
                     SizedBox(
                       width: double.infinity,
                       child: FilledButton(
-                        onPressed: () {
-                          widget.onRated(
-                            CategoryRating(
-                              story: _ratings['Story'],
-                              acting: _ratings['Acting'],
-                              action: _ratings['Action'],
-                              visuals: _ratings['Visuals'],
-                              sound: _ratings['Sound'],
-                            ),
-                          );
-                          Navigator.pop(context);
-                        },
+                        onPressed: _saving
+                            ? null
+                            : () async {
+                                setState(() => _saving = true);
+                                try {
+                                  await widget.onRated(
+                                    CategoryRating(
+                                      story: _ratings['Story'],
+                                      acting: _ratings['Acting'],
+                                      action: _ratings['Action'],
+                                      visuals: _ratings['Visuals'],
+                                      sound: _ratings['Sound'],
+                                    ),
+                                  );
+                                  if (context.mounted) Navigator.pop(context);
+                                } catch (_) {
+                                  if (mounted)
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "Could not save rating. Please try again.",
+                                        ),
+                                      ),
+                                    );
+                                } finally {
+                                  if (mounted) setState(() => _saving = false);
+                                }
+                              },
                         style: FilledButton.styleFrom(
                           backgroundColor: widget.accentPrimary,
                           padding: const EdgeInsets.symmetric(vertical: 14),

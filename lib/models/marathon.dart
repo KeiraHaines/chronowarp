@@ -62,6 +62,8 @@ class CatalogMedia {
   /// For games this is average play time; for seasons average episode runtime.
   final int? runtimeMinutes;
   final String? director;
+  final String? developer;
+  final String? playtime;
   final String? blurb;
 
   /// Flutter asset path or HTTPS image URL.
@@ -78,6 +80,8 @@ class CatalogMedia {
     this.releaseYear,
     this.runtimeMinutes,
     this.director,
+    this.developer,
+    this.playtime,
     this.blurb,
     this.poster,
     this.showTitle,
@@ -98,6 +102,9 @@ class CatalogMedia {
   String get dateLabel =>
       releaseDate ?? releaseYear?.toString() ?? 'Release date not added';
   String get durationLabel {
+    if (kind == MediaKind.game && playtime?.isNotEmpty == true) {
+      return '$playtime play time';
+    }
     if (runtimeMinutes == null)
       return kind == MediaKind.game
           ? 'Play time not added'
@@ -123,6 +130,8 @@ class CatalogMedia {
     'releaseYear': releaseYear,
     'runtimeMinutes': runtimeMinutes,
     'director': director,
+    'developer': developer,
+    'playtime': playtime,
     'blurb': blurb,
     'poster': poster,
     'showTitle': showTitle,
@@ -138,6 +147,8 @@ class CatalogMedia {
     releaseYear: j['releaseYear'],
     runtimeMinutes: j['runtimeMinutes'],
     director: j['director'],
+    developer: j['developer'],
+    playtime: j['playtime'],
     blurb: j['blurb'],
     poster: j['poster'],
     showTitle: j['showTitle'],
@@ -155,10 +166,14 @@ class MarathonEntry {
 
   /// null means the whole movie/game/season. Non-null is a deliberate episode selection.
   final List<String>? episodeIds;
+
+  /// Instructions specific to this position in a curated viewing order.
+  final String? note;
   MarathonEntry({
     required this.id,
     required this.mediaId,
     List<String>? episodeIds,
+    this.note,
   }) : episodeIds = episodeIds == null ? null : List.unmodifiable(episodeIds) {
     if (id.isEmpty || mediaId.isEmpty)
       throw ArgumentError('Entry IDs are required');
@@ -182,21 +197,39 @@ class MarathonEntry {
     return episodeIds ?? all;
   }
 
+  String displayTitle(CatalogMedia media) {
+    if (episodeIds == null) return media.title;
+    final numbers = [
+      for (final id in episodeIds!)
+        media.episodes.firstWhere((episode) => episode.id == id).number,
+    ];
+    final consecutive = numbers.indexed.every(
+      (pair) => pair.$2 == numbers.first + pair.$1,
+    );
+    final range = numbers.length > 1 && consecutive
+        ? '${numbers.first}–${numbers.last}'
+        : numbers.join(', ');
+    return '${media.title} · ${numbers.length == 1 ? 'Episode' : 'Episodes'} $range';
+  }
+
   Map<String, dynamic> toJson() => {
     'id': id,
     'mediaId': mediaId,
     'episodeIds': episodeIds,
+    if (note != null) 'note': note,
   };
   factory MarathonEntry.fromJson(Map<String, dynamic> j) => MarathonEntry(
     id: j['id'],
     mediaId: j['mediaId'],
     episodeIds: (j['episodeIds'] as List?)?.cast<String>(),
+    note: j['note'] as String?,
   );
 }
 
 class MarathonDefinition {
   final String id;
   final String title;
+  final String colourTheme;
   final String? universeId;
   final ViewingOrder order;
   final List<MarathonEntry> entries;
@@ -207,6 +240,7 @@ class MarathonDefinition {
   MarathonDefinition({
     required this.id,
     required this.title,
+    this.colourTheme = 'classic',
     this.universeId,
     required this.order,
     required List<MarathonEntry> entries,
@@ -225,6 +259,7 @@ class MarathonDefinition {
     'schemaVersion': 1,
     'title': title,
     'universeId': universeId,
+    if (colourTheme != 'classic') 'colourTheme': colourTheme,
     'order': order.name,
     'entries': entries.map((e) => e.toJson()).toList(),
     'media': media.map((k, v) => MapEntry(k, v.toJson())),
@@ -234,6 +269,7 @@ class MarathonDefinition {
         id: id,
         title: j['title'],
         universeId: j['universeId'],
+        colourTheme: j['colourTheme'] as String? ?? 'classic',
         order: ViewingOrder.values.byName(j['order']),
         entries: (j['entries'] as List)
             .map((e) => MarathonEntry.fromJson(Map<String, dynamic>.from(e)))

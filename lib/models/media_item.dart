@@ -1,4 +1,4 @@
-enum MediaType { movie, show }
+enum MediaType { movie, show, game }
 
 /// Stores the user's per-category ratings for a single entry.
 class CategoryRating {
@@ -47,6 +47,7 @@ class CategoryRating {
 
 class MediaItem {
   final int number;
+  final String? catalogId;
 
   /// Display title.
   /// Movies:      'Iron Man'
@@ -54,6 +55,7 @@ class MediaItem {
   final String title;
 
   final int year;
+  String get yearLabel => year > 0 ? '$year' : 'TBA';
   final MediaType type;
 
   // ── Movie-only ────────────────────────────────────────────────────────────
@@ -78,6 +80,7 @@ class MediaItem {
 
   MediaItem({
     required this.number,
+    this.catalogId,
     required this.title,
     required this.year,
     required this.type,
@@ -91,6 +94,8 @@ class MediaItem {
 
   /// Compatibility with the movie catalog's typed entries.
   factory MediaItem.movie(Movie movie) => movie;
+
+  factory MediaItem.game(Game game) => game;
 
   /// Show entries in this model each represent one season.
   int? get seasons => isShow ? 1 : null;
@@ -130,4 +135,20 @@ class Season {
   final List<Episode> episodes;
 
   const Season({required this.seasonNumber, required this.episodes});
+}
+
+/// Game metadata used by curated universe lists.
+class Game extends MediaItem {
+  final String? playtime;
+  final String? developer;
+
+  Game({
+    required super.number,
+    required super.title,
+    required super.year,
+    this.playtime,
+    this.developer,
+    super.posterPath,
+    super.blurb,
+  }) : super(type: MediaType.game);
 }

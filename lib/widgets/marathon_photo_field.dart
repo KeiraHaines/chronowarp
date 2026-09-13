@@ -8,12 +8,14 @@ import '../services/marathon_photo_store.dart';
 class MarathonPhotoField extends StatefulWidget {
   final String Function() objectId;
   final String label;
+  final String? initialPhotoId;
   final ValueChanged<String?> onChanged;
   final ValueChanged<bool> onReady;
   const MarathonPhotoField({
     super.key,
     required this.objectId,
     required this.label,
+    this.initialPhotoId,
     required this.onChanged,
     required this.onReady,
   });
@@ -27,6 +29,30 @@ class _MarathonPhotoFieldState extends State<MarathonPhotoField> {
   bool _busy = false;
   bool _saved = true;
   String? _error;
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialPhotoId != null) {
+      _busy = true;
+      _store
+          .read(MarathonPhotoStore.reference(widget.initialPhotoId!))
+          .then((bytes) {
+            if (mounted)
+              setState(() {
+                _bytes = bytes;
+                _busy = false;
+              });
+          })
+          .catchError((Object error) {
+            if (mounted)
+              setState(() {
+                _busy = false;
+                _error = 'Could not load your current cover.';
+              });
+          });
+    }
+  }
+
   Future<void> _pick() async {
     setState(() {
       _busy = true;

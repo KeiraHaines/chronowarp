@@ -1,0 +1,278 @@
+{
+  "source": "universe/princess_release.txt",
+  "reference": "https://disneyprincess.fandom.com/wiki/List_of_Disney_Princess_Films",
+  "retrieved": "2026-09-09",
+  "sourceSha256": "3e7c28d4de7c15192cad724b733c7dee4accbf7604dd82ffa1e75e65ddd1cf37",
+  "records": [
+    {
+      "sourceStep": 1,
+      "id": "disney-princess-tmdb-movie-408",
+      "source": "https://www.themoviedb.org/movie/408"
+    },
+    {
+      "sourceStep": 2,
+      "id": "disney-princess-tmdb-movie-11224",
+      "source": "https://www.themoviedb.org/movie/11224"
+    },
+    {
+      "sourceStep": 3,
+      "id": "disney-princess-tmdb-movie-14128",
+      "source": "https://www.themoviedb.org/movie/14128"
+    },
+    {
+      "sourceStep": 4,
+      "id": "disney-princess-tmdb-movie-16119",
+      "source": "https://www.themoviedb.org/movie/16119"
+    },
+    {
+      "sourceStep": 5,
+      "id": "disney-princess-tmdb-movie-150689",
+      "source": "https://www.themoviedb.org/movie/150689"
+    },
+    {
+      "sourceStep": 6,
+      "id": "disney-princess-tmdb-movie-10882",
+      "source": "https://www.themoviedb.org/movie/10882"
+    },
+    {
+      "sourceStep": 7,
+      "id": "disney-princess-tmdb-movie-10144",
+      "source": "https://www.themoviedb.org/movie/10144"
+    },
+    {
+      "sourceStep": 8,
+      "id": "disney-princess-tmdb-movie-10898",
+      "source": "https://www.themoviedb.org/movie/10898"
+    },
+    {
+      "sourceStep": 9,
+      "id": "disney-princess-tmdb-movie-13676",
+      "source": "https://www.themoviedb.org/movie/13676"
+    },
+    {
+      "sourceStep": 10,
+      "id": "disney-princess-tmdb-tv-2675-season-1",
+      "source": "https://www.themoviedb.org/tv/2675/season/1"
+    },
+    {
+      "sourceStep": 10,
+      "id": "disney-princess-tmdb-tv-2675-season-2",
+      "source": "https://www.themoviedb.org/tv/2675/season/2"
+    },
+    {
+      "sourceStep": 10,
+      "id": "disney-princess-tmdb-tv-2675-season-3",
+      "source": "https://www.themoviedb.org/tv/2675/season/3"
+    },
+    {
+      "sourceStep": 11,
+      "id": "disney-princess-tmdb-movie-447277",
+      "source": "https://www.themoviedb.org/movie/447277"
+    },
+    {
+      "sourceStep": 12,
+      "id": "disney-princess-tmdb-movie-10020",
+      "source": "https://www.themoviedb.org/movie/10020"
+    },
+    {
+      "sourceStep": 13,
+      "id": "disney-princess-tmdb-movie-13313",
+      "source": "https://www.themoviedb.org/movie/13313"
+    },
+    {
+      "sourceStep": 14,
+      "id": "disney-princess-tmdb-movie-321612",
+      "source": "https://www.themoviedb.org/movie/321612"
+    },
+    {
+      "sourceStep": 15,
+      "id": "disney-princess-tmdb-movie-812",
+      "source": "https://www.themoviedb.org/movie/812"
+    },
+    {
+      "sourceStep": 16,
+      "id": "disney-princess-tmdb-movie-15969",
+      "source": "https://www.themoviedb.org/movie/15969"
+    },
+    {
+      "sourceStep": 17,
+      "id": "disney-princess-tmdb-movie-11238",
+      "source": "https://www.themoviedb.org/movie/11238"
+    },
+    {
+      "sourceStep": 18,
+      "id": "disney-princess-tmdb-tv-2745-season-1",
+      "source": "https://www.themoviedb.org/tv/2745/season/1"
+    },
+    {
+      "sourceStep": 18,
+      "id": "disney-princess-tmdb-tv-2745-season-2",
+      "source": "https://www.themoviedb.org/tv/2745/season/2"
+    },
+    {
+      "sourceStep": 18,
+      "id": "disney-princess-tmdb-tv-2745-season-3",
+      "source": "https://www.themoviedb.org/tv/2745/season/3"
+    },
+    {
+      "sourceStep": 19,
+      "id": "disney-princess-tmdb-movie-420817",
+      "source": "https://www.themoviedb.org/movie/420817"
+    },
+    {
+      "sourceStep": 20,
+      "id": "disney-princess-tmdb-movie-10530",
+      "source": "https://www.themoviedb.org/movie/10530"
+    },
+    {
+      "sourceStep": 21,
+      "id": "disney-princess-tmdb-movie-13761",
+      "source": "https://www.themoviedb.org/movie/13761"
+    },
+    {
+      "sourceStep": 22,
+      "id": "disney-princess-tmdb-movie-9444",
+      "source": "https://www.themoviedb.org/movie/9444"
+    },
+    {
+      "sourceStep": 23,
+      "id": "disney-princess-tmdb-movie-10674",
+      "source": "https://www.themoviedb.org/movie/10674"
+    },
+    {
+      "sourceStep": 24,
+      "id": "disney-princess-tmdb-movie-12242",
+      "source": "https://www.themoviedb.org/movie/12242"
+    },
+    {
+      "sourceStep": 25,
+      "id": "disney-princess-tmdb-movie-337401",
+      "source": "https://www.themoviedb.org/movie/337401"
+    },
+    {
+      "sourceStep": 26,
+      "id": "disney-princess-tmdb-movie-10198",
+      "source": "https://www.themoviedb.org/movie/10198"
+    },
+    {
+      "sourceStep": 27,
+      "id": "disney-princess-tmdb-movie-38757",
+      "source": "https://www.themoviedb.org/movie/38757"
+    },
+    {
+      "sourceStep": 28,
+      "id": "disney-princess-tmdb-movie-438747",
+      "source": "https://www.themoviedb.org/movie/438747"
+    },
+    {
+      "sourceStep": 29,
+      "id": "disney-princess-tmdb-tv-70047-season-1",
+      "source": "https://www.themoviedb.org/tv/70047/season/1"
+    },
+    {
+      "sourceStep": 29,
+      "id": "disney-princess-tmdb-tv-70047-season-2",
+      "source": "https://www.themoviedb.org/tv/70047/season/2"
+    },
+    {
+      "sourceStep": 29,
+      "id": "disney-princess-tmdb-tv-70047-season-3",
+      "source": "https://www.themoviedb.org/tv/70047/season/3"
+    },
+    {
+      "sourceStep": 30,
+      "id": "disney-princess-tmdb-movie-62177",
+      "source": "https://www.themoviedb.org/movie/62177"
+    },
+    {
+      "sourceStep": 31,
+      "id": "disney-princess-tmdb-movie-82690",
+      "source": "https://www.themoviedb.org/movie/82690"
+    },
+    {
+      "sourceStep": 32,
+      "id": "disney-princess-tmdb-movie-404368",
+      "source": "https://www.themoviedb.org/movie/404368"
+    },
+    {
+      "sourceStep": 33,
+      "id": "disney-princess-tmdb-tv-46928-season-1",
+      "source": "https://www.themoviedb.org/tv/46928/season/1"
+    },
+    {
+      "sourceStep": 33,
+      "id": "disney-princess-tmdb-tv-46928-season-2",
+      "source": "https://www.themoviedb.org/tv/46928/season/2"
+    },
+    {
+      "sourceStep": 33,
+      "id": "disney-princess-tmdb-tv-46928-season-3",
+      "source": "https://www.themoviedb.org/tv/46928/season/3"
+    },
+    {
+      "sourceStep": 33,
+      "id": "disney-princess-tmdb-tv-46928-season-4",
+      "source": "https://www.themoviedb.org/tv/46928/season/4"
+    },
+    {
+      "sourceStep": 34,
+      "id": "disney-princess-tmdb-movie-109445",
+      "source": "https://www.themoviedb.org/movie/109445"
+    },
+    {
+      "sourceStep": 35,
+      "id": "disney-princess-tmdb-movie-330457",
+      "source": "https://www.themoviedb.org/movie/330457"
+    },
+    {
+      "sourceStep": 36,
+      "id": "disney-princess-tmdb-tv-67175-season-1",
+      "source": "https://www.themoviedb.org/tv/67175/season/1"
+    },
+    {
+      "sourceStep": 36,
+      "id": "disney-princess-tmdb-tv-67175-season-2",
+      "source": "https://www.themoviedb.org/tv/67175/season/2"
+    },
+    {
+      "sourceStep": 36,
+      "id": "disney-princess-tmdb-tv-67175-season-3",
+      "source": "https://www.themoviedb.org/tv/67175/season/3"
+    },
+    {
+      "sourceStep": 37,
+      "id": "disney-princess-tmdb-tv-67175-season-0-collection-1",
+      "source": "https://www.themoviedb.org/tv/67175/season/0"
+    },
+    {
+      "sourceStep": 38,
+      "id": "disney-princess-tmdb-tv-67175-season-0-collection-2",
+      "source": "https://www.themoviedb.org/tv/67175/season/0"
+    },
+    {
+      "sourceStep": 39,
+      "id": "disney-princess-tmdb-tv-67175-season-0-collection-3",
+      "source": "https://www.themoviedb.org/tv/67175/season/0"
+    },
+    {
+      "sourceStep": 40,
+      "id": "disney-princess-tmdb-tv-67175-season-0-collection-4",
+      "source": "https://www.themoviedb.org/tv/67175/season/0"
+    },
+    {
+      "sourceStep": 41,
+      "id": "disney-princess-elena-coronation-day",
+      "source": "https://www.themoviedb.org/tv/67175/season/3/episode/28"
+    },
+    {
+      "sourceStep": 42,
+      "id": "disney-princess-tmdb-movie-277834",
+      "source": "https://www.themoviedb.org/movie/277834"
+    },
+    {
+      "sourceStep": 43,
+      "id": "disney-princess-tmdb-movie-527774",
+      "source": "https://www.themoviedb.org/movie/527774"
+    }
+  ]
+}

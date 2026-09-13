@@ -1,26 +1,17 @@
+import '../models/party_marathon.dart';
+import '../models/marathon.dart';
+import '../widgets/media_poster.dart';
+import 'create_marathon_page.dart';
+import 'party_invite_page.dart';
 import '../widgets/media_rating_sheet.dart';
 import '../widgets/profile_avatar.dart';
 import 'package:chronowarp/data/universe_configs.dart';
 import 'package:chronowarp/widgets/universe_watch_page.dart';
-import 'package:chronowarp/data/marvel_data.dart';
-import 'package:chronowarp/data/lionking_data.dart';
 import 'package:chronowarp/models/media_item.dart';
 import 'package:chronowarp/services/firestore_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-// ── Universe item lookup ──────────────────────────────────────────────────────
-List<MediaItem> _itemsForUniverse(String key) {
-  switch (key) {
-    case 'Marvel Cinematic Universe':
-      return mcuReleaseOrder;
-    case 'Lion King':
-      return lionKingReleaseOrder;
-    default:
-      return [];
-  }
-}
 
 class WatchPartyPage extends StatefulWidget {
   final String partyId;
@@ -33,7 +24,6 @@ class WatchPartyPage extends StatefulWidget {
 class _WatchPartyPageState extends State<WatchPartyPage> {
   final _service = FirestoreService.instance;
   final _uid = FirebaseAuth.instance.currentUser!.uid;
-  bool _isReleaseOrder = true;
   UniverseConfig? _universeConfig;
   Color get _bgPage =>
       _universeConfig?.bgPage ?? const Color.fromRGBO(26, 41, 49, 1);
@@ -50,6 +40,56 @@ class _WatchPartyPageState extends State<WatchPartyPage> {
   Color get _textCard => _universeConfig?.textCard ?? const Color(0xFFEEF1F4);
   Color get _textCardMuted =>
       _universeConfig?.textCardMuted ?? const Color(0xFF8AABB4);
+
+  Future<void> _editMarathon(Map<String, dynamic> party) async {
+    await Navigator.push<MarathonDefinition>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => MarathonDraftPage(
+          initialMarathon: PartyMarathon.definition(widget.partyId, party),
+          saveChanges: (edited) => _service.savePartyMarathon(
+            widget.partyId,
+            edited,
+            expectedRevision: (party['marathonRevision'] as num?)?.toInt() ?? 0,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _inviteFriends() async {
+    final count = await Navigator.push<int>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => PartyInvitePage(
+          partyId: widget.partyId,
+          currentUid: _uid,
+          party: _service
+              .partyStream(widget.partyId)
+              .map((doc) => doc.data() as Map<String, dynamic>?),
+          friends: _service.myFriendsStream().map(
+            (doc) => List<String>.from(
+              (doc.data() as Map<String, dynamic>?)?['friendIds'] ?? [],
+            ),
+          ),
+          user: (id) => _service
+              .userStream(id)
+              .map((doc) => doc.data() as Map<String, dynamic>?),
+          send: (ids) => _service.inviteToParty(widget.partyId, ids),
+        ),
+      ),
+    );
+    if (!mounted || count == null) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          count == 0
+              ? 'Selected friends are already invited or in the party.'
+              : '$count invitation${count == 1 ? '' : 's'} sent.',
+        ),
+      ),
+    );
+  }
 
   // ── Leave party ─────────────────────────────────────────────────────────────
   Future<void> _confirmLeave(BuildContext context) async {
@@ -148,24 +188,29 @@ class _WatchPartyPageState extends State<WatchPartyPage> {
                 final leaderUid = party['leaderUid'] as String;
                 final memberIds = List<String>.from(party['memberIds'] ?? []);
                 final watchedNums = List<int>.from(
-                  (party['watchedNumbers'] as List).map((e) => e as int),
+                  (party['watchedNumbers'] as List? ?? []).map((e) => e as int),
                 );
                 final isLeader = _uid == leaderUid;
-                final allItems = _itemsForUniverse(universeKey);
+                final definition = PartyMarathon.definition(
+                  widget.partyId,
+                  party,
+                );
+                final numbers = PartyMarathon.numbers(definition, party);
+                final items = PartyMarathon.items(definition, numbers);
+                final watchedCount = items
+                    .where((item) => watchedNums.contains(item.number))
+                    .length;
 
-                // Release vs chronological — for now both point to the same list
-                // since party data only stores one universe key. You can extend
-                // this once chronological lists are wired per universe.
-                final items = allItems;
-
-                final movieCount = items.where((i) => !i.isShow).length;
+                final movieCount = items
+                    .where((i) => i.type == MediaType.movie)
+                    .length;
                 final showCount = items.where((i) => i.isShow).length;
                 final episodeCount = items.fold<int>(
                   0,
                   (sum, i) => sum + (i.episodes ?? 0),
                 );
                 final total = items.length;
-                final progress = total > 0 ? watchedNums.length / total : 0.0;
+                final progress = total > 0 ? watchedCount / total : 0.0;
                 final percent = (progress * 100).round();
 
                 MediaItem? nextUp;
@@ -224,6 +269,14 @@ class _WatchPartyPageState extends State<WatchPartyPage> {
                                           () => Navigator.pop(context),
                                         ),
                                         const Spacer(),
+                                        if (isLeader) ...[
+                                          _iconBtn(
+                                            context,
+                                            Icons.edit_outlined,
+                                            () => _editMarathon(party),
+                                          ),
+                                          const SizedBox(width: 8),
+                                        ],
                                         _iconBtn(
                                           context,
                                           Icons.logout_rounded,
@@ -237,7 +290,22 @@ class _WatchPartyPageState extends State<WatchPartyPage> {
                               const SizedBox(height: 12),
 
                               // ── Member avatars ────────────────────────────────
-                              _buildMemberRow(memberIds),
+                              Row(
+                                children: [
+                                  Expanded(child: _buildMemberRow(memberIds)),
+                                  if (isLeader) ...[
+                                    const SizedBox(width: 8),
+                                    TextButton.icon(
+                                      onPressed: _inviteFriends,
+                                      icon: const Icon(Icons.person_add_alt_1),
+                                      label: const Text('Invite friends'),
+                                      style: TextButton.styleFrom(
+                                        foregroundColor: _accent,
+                                      ),
+                                    ),
+                                  ],
+                                ],
+                              ),
                               const SizedBox(height: 16),
 
                               // ── Stat row ──────────────────────────────────────
@@ -269,7 +337,7 @@ class _WatchPartyPageState extends State<WatchPartyPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '${watchedNums.length} of $total watched',
+                                    '$watchedCount of $total watched',
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
@@ -300,34 +368,11 @@ class _WatchPartyPageState extends State<WatchPartyPage> {
                               ),
                               const SizedBox(height: 18),
 
-                              // ── Order toggle ──────────────────────────────────
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: _bgCard,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding: const EdgeInsets.all(3),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: _toggleOption(
-                                        'Release Order',
-                                        _isReleaseOrder,
-                                        () => setState(
-                                          () => _isReleaseOrder = true,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: _toggleOption(
-                                        'Chronological Order',
-                                        !_isReleaseOrder,
-                                        () => setState(
-                                          () => _isReleaseOrder = false,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                              Text(
+                                'Party watch order',
+                                style: TextStyle(
+                                  color: _textPri,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const SizedBox(height: 16),
@@ -358,6 +403,11 @@ class _WatchPartyPageState extends State<WatchPartyPage> {
                                     return _buildItemCard(
                                       context: context,
                                       item: item,
+                                      displayNumber: items.indexOf(item) + 1,
+                                      media:
+                                          definition.media[definition
+                                              .entries[items.indexOf(item)]
+                                              .mediaId]!,
                                       isNextUp: isNextUp,
                                       isWatched: isWatched,
                                       isLeader: isLeader,
@@ -440,33 +490,11 @@ class _WatchPartyPageState extends State<WatchPartyPage> {
   }
 
   // ── Toggle option ────────────────────────────────────────────────────────────
-  Widget _toggleOption(String label, bool selected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-        decoration: BoxDecoration(
-          color: selected ? _bgChip : Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          label,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
-            color: selected ? _textPri : _textCardMuted,
-          ),
-        ),
-      ),
-    );
-  }
-
-  // ── Item card (mirrors solo UI + party extras) ────────────────────────────────
   Widget _buildItemCard({
     required BuildContext context,
     required MediaItem item,
+    required int displayNumber,
+    required CatalogMedia media,
     required bool isNextUp,
     required bool isWatched,
     required bool isLeader,
@@ -536,7 +564,7 @@ class _WatchPartyPageState extends State<WatchPartyPage> {
                               color: Colors.white,
                             )
                           : Text(
-                              '${item.number}',
+                              '$displayNumber',
                               style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -617,40 +645,7 @@ class _WatchPartyPageState extends State<WatchPartyPage> {
               ),
             ),
 
-            // ── Poster (next up only — matches solo UI ratio) ──
-            if (isNextUp)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: AspectRatio(
-                    aspectRatio: 2 / 3,
-                    child: item.posterPath != null
-                        ? Image.asset(item.posterPath!, fit: BoxFit.cover)
-                        : Container(
-                            color: _bgChip,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.image_outlined,
-                                  size: 48,
-                                  color: _textMuted,
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  'Poster coming soon',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: _textMuted,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                  ),
-                ),
-              ),
+            if (isNextUp) MediaPoster(media: media),
 
             // ── Blurb (next up only) ──────────────────────────
             if (isNextUp && item.blurb != null)
@@ -739,7 +734,7 @@ class _WatchPartyPageState extends State<WatchPartyPage> {
         Icon(Icons.calendar_today_outlined, size: 12, color: _textCardMuted),
         const SizedBox(width: 4),
         Text(
-          '${item.year}',
+          item.yearLabel,
           style: TextStyle(fontSize: 12, color: _textCardMuted),
         ),
         if (item.runtime != null) ...[
@@ -762,7 +757,7 @@ class _WatchPartyPageState extends State<WatchPartyPage> {
         Icon(Icons.calendar_today_outlined, size: 12, color: _textCardMuted),
         const SizedBox(width: 4),
         Text(
-          '${item.year}',
+          item.yearLabel,
           style: TextStyle(fontSize: 12, color: _textCardMuted),
         ),
         const SizedBox(width: 8),

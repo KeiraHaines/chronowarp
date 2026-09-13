@@ -1,3 +1,6 @@
+import '../models/watch_stats.dart';
+import '../services/marathon_repository.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/profile_avatar.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +15,8 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   bool _savingAvatar = false;
+  late final Stream<WatchStats> _watchStats = MarathonRepository.current()
+      .watchStats();
 
   Future<void> _chooseAvatar(String uid, String? current) async {
     final selected = await Navigator.push<String>(
@@ -138,13 +143,45 @@ class _AccountPageState extends State<AccountPage> {
 
             const SizedBox(height: 30),
 
-            // Watch Stats
-            Row(
-              children: [
-                Expanded(child: _statCard("Movies Watched", "0", Icons.movie)),
-                const SizedBox(width: 12),
-                Expanded(child: _statCard("Episodes Watched", "0", Icons.tv)),
-              ],
+            StreamBuilder<WatchStats>(
+              stream: _watchStats,
+              builder: (context, snapshot) {
+                final stats = snapshot.data;
+                final unavailable = snapshot.hasError;
+                return Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _statCard(
+                            'Movies Watched',
+                            unavailable ? '—' : stats?.movies.toString() ?? '…',
+                            Icons.movie,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: _statCard(
+                            'Episodes Watched',
+                            unavailable
+                                ? '—'
+                                : stats?.episodes.toString() ?? '…',
+                            Icons.tv,
+                          ),
+                        ),
+                      ],
+                    ),
+                    if (unavailable)
+                      const Padding(
+                        padding: EdgeInsets.only(top: 8),
+                        child: Text(
+                          'Watch totals are temporarily unavailable.',
+                          style: TextStyle(color: Colors.white70),
+                        ),
+                      ),
+                  ],
+                );
+              },
             ),
 
             const SizedBox(height: 30),
@@ -183,6 +220,40 @@ class _AccountPageState extends State<AccountPage> {
               ),
             ),
 
+            const SizedBox(height: 16),
+            ExpansionTile(
+              title: const Text(
+                'About & credits',
+                style: TextStyle(color: Colors.white),
+              ),
+              iconColor: Colors.white70,
+              collapsedIconColor: Colors.white70,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/branding/tmdb.svg',
+                        width: 110,
+                        semanticsLabel: 'The Movie Database',
+                      ),
+                      const SizedBox(height: 12),
+                      const Text(
+                        'This product uses the TMDB API but is not endorsed or certified by TMDB.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      const SizedBox(height: 8),
+                      const SelectableText(
+                        'https://www.themoviedb.org',
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 40),
           ],
         ),

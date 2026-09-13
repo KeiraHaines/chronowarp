@@ -29,6 +29,7 @@ const _lionIds = {
 };
 
 String mediaIdFor(String universe, MediaItem item) {
+  if (item.catalogId != null) return item.catalogId!;
   if (universe == 'lion-king') return _lionIds['${item.year}:${item.title}']!;
   return '$universe-${item.year}-${item.title.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '-')}';
 }
@@ -47,13 +48,19 @@ CatalogMedia _convert(String universe, MediaItem item) {
   return CatalogMedia(
     id: id,
     universeId: universe,
-    kind: item.isShow ? MediaKind.season : MediaKind.movie,
+    kind: item is Game
+        ? MediaKind.game
+        : item.isShow
+        ? MediaKind.season
+        : MediaKind.movie,
     title: item.title,
     releaseYear: item.year,
     runtimeMinutes: hour == null && minute == null
         ? null
         : (hour ?? 0) * 60 + (minute ?? 0),
     director: item is Movie ? item.director : null,
+    developer: item is Game ? item.developer : null,
+    playtime: item is Game ? item.playtime : null,
     blurb: item.blurb,
     poster: item.posterPath,
     showTitle: item.isShow ? item.title.split(' — Season').first : null,
@@ -70,6 +77,7 @@ CatalogMedia _convert(String universe, MediaItem item) {
 /// One catalogue record per title/season. Existing order lists remain curated
 /// templates, not sources of identity. Legacy party item numbers remain intact.
 Map<String, CatalogMedia> catalogFor(UniverseConfig config) {
+  if (config.catalog != null) return Map.of(config.catalog!);
   final universe = universeIdFor(config.title);
   return {
     for (final item in config.releaseItems)
@@ -78,6 +86,9 @@ Map<String, CatalogMedia> catalogFor(UniverseConfig config) {
 }
 
 MarathonDefinition universeMarathon(UniverseConfig config, ViewingOrder order) {
+  if (!config.hasMultipleOrders && order == ViewingOrder.chronological) {
+    order = ViewingOrder.release;
+  }
   final universe = universeIdFor(config.title);
   final media = catalogFor(config);
   final items = order == ViewingOrder.release
@@ -94,7 +105,11 @@ MarathonDefinition universeMarathon(UniverseConfig config, ViewingOrder order) {
     title: config.title,
     universeId: universe,
     order: order,
-    entries: entries,
+    entries:
+        order == ViewingOrder.chronological &&
+            config.chronologicalEntries != null
+        ? config.chronologicalEntries!
+        : entries,
     media: media,
   );
 }
@@ -104,4 +119,16 @@ List<UniverseConfig> get availableUniverses => [
   marvelConfig,
   pixarConfig,
   starWarsConfig,
+  wizardingWorldConfig,
+  princessConfig,
+  hungerGamesConfig,
+  jamesBondConfig,
+  xmenConfig,
+  highSchoolMusicalConfig,
+  dragonsConfig,
+  indianaJonesConfig,
+  jurassicConfig,
+  missionImpossibleConfig,
+  piratesConfig,
+  lordOfTheRingsConfig,
 ];

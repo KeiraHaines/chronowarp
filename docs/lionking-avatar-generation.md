@@ -14,3 +14,8 @@ Use case: stylized-concept. Create one square profile avatar for a Lion King col
 
 Use case: stylized-concept. Create one square profile avatar for a Lion King collection in a Flutter app. Subject: The iconic Lion Guard mark from Disney's The Lion Guard: the stylized red lion head profile emblem seen on Kion's shoulder. Show the symbol itself as a bold clean red painted mark, not a character portrait, on a warm golden ochre textured backdrop. Polished hand-painted animation illustration, readable bold shapes at small size. Warm gold, ochre and earthy palette. Center the main subject inside the central 70 percent of the square with ample space to survive circular cropping. Full-bleed background, no lettering, caption, watermark, border or extra emblems. 1024x1024.
 
+
+
+## Rafiki’s Tree replacement
+
+The former Rafiki’s Simba avatar now shows Rafiki’s baobab tree at sunset, generated with the built-in image tool. The existing asset filename and selection ID are retained so saved profile selections continue working. The picker label is Rafiki’s Tree.

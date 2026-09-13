@@ -277,7 +277,7 @@ class WatchPartyDiscoverPage extends StatelessWidget {
                           crossAxisCount: 2,
                           crossAxisSpacing: 12,
                           mainAxisSpacing: 12,
-                          childAspectRatio: 0.82,
+                          childAspectRatio: 0.90,
                         ),
                     itemCount: docs.length,
                     itemBuilder: (context, i) {
@@ -393,7 +393,7 @@ class _PartyCard extends StatelessWidget {
           border: Border.all(color: accentColor.withOpacity(0.35), width: 1.5),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(14),
+          padding: const EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -414,7 +414,7 @@ class _PartyCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
 
               // Party title
               Text(
@@ -428,7 +428,7 @@ class _PartyCard extends StatelessWidget {
                   height: 1.2,
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
 
               // Member avatars
               _MemberAvatarRow(
@@ -474,7 +474,7 @@ class _PartyCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
 
               // Next up
               if (nextUp != null)

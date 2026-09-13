@@ -9,6 +9,18 @@ void main() {
     lionKingConfig,
     ViewingOrder.chronological,
   );
+  test('marathon colours survive save and old lists keep default colours', () {
+    final data = release.toJson()..['colourTheme'] = 'rose';
+    final restored = MarathonDefinition.fromJson(release.id, data);
+    expect(restored.colourTheme, 'rose');
+    expect(restored.toJson()['colourTheme'], 'rose');
+    expect(restored.entries.map((e) => e.id), release.entries.map((e) => e.id));
+    data.remove('colourTheme');
+    expect(
+      MarathonDefinition.fromJson(release.id, data).colourTheme,
+      'classic',
+    );
+  });
   test('Lion King media identity is independent of list position', () {
     expect(release.entries.first.mediaId, 'lion-king-1994');
     expect(chronology.entries.first.mediaId, 'mufasa-2024');
@@ -173,10 +185,10 @@ void main() {
     expect(release.media['lion-king-1994']!.releaseDate, isNull);
     expect(release.media['lion-king-1994']!.dateLabel, '1994');
   });
-  test('Pixar chronology cannot accidentally contain Lion King titles', () {
+  test('Pixar alternate entry point uses only its single Pixar list', () {
     expect(
-      universeMarathon(pixarConfig, ViewingOrder.chronological).entries,
-      isEmpty,
+      universeMarathon(pixarConfig, ViewingOrder.chronological).id,
+      universeMarathon(pixarConfig, ViewingOrder.release).id,
     );
     expect(
       universeMarathon(
